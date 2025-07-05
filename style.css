@@ -11,6 +11,15 @@ h1 {
     margin: 20px;
 }
 
+#filters {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
 #map {
     width: 90%;
     height: 500px;

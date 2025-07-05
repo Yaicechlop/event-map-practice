@@ -6,7 +6,7 @@
     <title>Карта подій міста</title>
     <link rel="stylesheet" href="style.css" />
 
-    <!-- Leaflet CSS (виправлене підключення без integrity) -->
+    <!-- Leaflet CSS -->
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -14,9 +14,27 @@
 </head>
 <body>
     <h1>Карта подій міста</h1>
+
+    <!-- Фільтри -->
+    <div id="filters">
+        <label for="category">Категорія:</label>
+        <select id="category">
+            <option value="all">Усі</option>
+            <option value="Музика">Музика</option>
+            <option value="Кіно">Кіно</option>
+            <option value="Виставка">Виставка</option>
+            <option value="Спорт">Спорт</option>
+        </select>
+
+        <label for="date">Дата:</label>
+        <input type="date" id="date">
+
+        <button id="filterButton">Фільтрувати</button>
+    </div>
+
     <div id="map"></div>
 
-    <!-- Leaflet JS (виправлене підключення без integrity) -->
+    <!-- Leaflet JS -->
     <script
         src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
     </script>

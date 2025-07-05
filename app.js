@@ -43,8 +43,35 @@ const events = [
     }
 ];
 
-// Додавання маркерів на карту
-events.forEach(event => {
-    const marker = L.marker([event.lat, event.lng]).addTo(map);
-    marker.bindPopup(`<b>${event.name}</b><br>${event.description}<br><i>${event.date} | ${event.type}</i>`);
+// Глобальний масив для збереження маркерів
+let markers = [];
+
+// Функція для відображення подій на карті
+function displayEvents(filteredEvents) {
+    // Видалення старих маркерів
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+
+    filteredEvents.forEach(event => {
+        const marker = L.marker([event.lat, event.lng]).addTo(map);
+        marker.bindPopup(`<b>${event.name}</b><br>${event.description}<br><i>${event.date} | ${event.type}</i>`);
+        markers.push(marker);
+    });
+}
+
+// Відображаємо всі події при завантаженні
+displayEvents(events);
+
+// Фільтрація
+document.getElementById('filterButton').addEventListener('click', () => {
+    const selectedCategory = document.getElementById('category').value;
+    const selectedDate = document.getElementById('date').value;
+
+    const filtered = events.filter(event => {
+        const matchCategory = selectedCategory === 'all' || event.type === selectedCategory;
+        const matchDate = !selectedDate || event.date === selectedDate;
+        return matchCategory && matchDate;
+    });
+
+    displayEvents(filtered);
 });
