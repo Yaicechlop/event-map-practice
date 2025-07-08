@@ -1,126 +1,375 @@
-// Ініціалізація карти
-var map = L.map('map').setView([50.9077, 34.7981], 13);
-
-// Додавання OSM шару
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap',
-    maxZoom: 19
-}).addTo(map);
-
-// Мокові події
+/* =========================================================
+   1.  ДАНІ (events + locations)
+   ======================================================= */
 const events = [
-    {
-        name: "Концерт гурту XYZ",
-        lat: 50.9110,
-        lng: 34.8020,
-        type: "Музика",
-        date: "2025-07-10",
-        description: "Концерт на площі Незалежності"
-    },
-    {
-        name: "Кінопоказ просто неба",
-        lat: 50.9050,
-        lng: 34.7985,
-        type: "Кіно",
-        date: "2025-07-12",
-        description: "Безкоштовний кінопоказ у міському парку"
-    },
-    {
-        name: "Виставка художників",
-        lat: 50.9095,
-        lng: 34.7960,
-        type: "Виставка",
-        date: "2025-07-15",
-        description: "Виставка у краєзнавчому музеї"
-    },
-    {
-        name: "Відкрите тренування",
-        lat: 50.9080,
-        lng: 34.8030,
-        type: "Спорт",
-        date: "2025-07-13",
-        description: "Відкрите тренування з йоги у парку"
-    },
-    {
-        name: "Лекція з історії міста",
-        lat: 50.9105,
-        lng: 34.7950,
-        type: "Навчання",
-        date: "2025-07-14",
-        description: "Відкрита лекція у бібліотеці"
-    },
-    {
-        name: "Міський фестиваль музики",
-        lat: 50.9120,
-        lng: 34.8050,
-        type: "Музика",
-        date: "2025-07-18",
-        description: "Фестиваль на стадіоні"
-    },
-    {
-        name: "Вечір короткометражок",
-        lat: 50.9065,
-        lng: 34.7970,
-        type: "Кіно",
-        date: "2025-07-20",
-        description: "Кінопоказ у молодіжному центрі"
-    },
-    {
-        name: "Виставка фотографій",
-        lat: 50.9088,
-        lng: 34.7995,
-        type: "Виставка",
-        date: "2025-07-22",
-        description: "Виставка у галереї"
-    },
-    {
-        name: "Змагання з бігу",
-        lat: 50.9030,
-        lng: 34.8000,
-        type: "Спорт",
-        date: "2025-07-24",
-        description: "Міські змагання з бігу у парку"
-    },
-    {
-        name: "Майстер-клас з малювання",
-        lat: 50.9090,
-        lng: 34.8040,
-        type: "Навчання",
-        date: "2025-07-26",
-        description: "Майстер-клас у художній школі"
-    }
+  {
+    name: 'Концерт гурту XYZ',
+    description: 'Великий концерт популярного гурту XYZ на площі Незалежності.',
+    date: '2025-07-10',
+    type: 'Музика',
+    lat: 50.911, lng: 34.802,
+    image: 'xyz-concert.png',
+    link: 'events/event1.html',
+    venueId: 4
+  },
+  {
+    name: 'Кінопоказ просто неба',
+    description: 'Вечірній кінопоказ у Центральному парку.',
+    date: '2025-07-12',
+    type: 'Кіно',
+    lat: 50.905, lng: 34.7985,
+    image: 'cinema-openair.jpg',
+    link: 'events/event2.html',
+    venueId: 2
+  },
+  {
+    name: 'Виставка художників',
+    description: 'Виставка сучасного живопису у міській галереї.',
+    date: '2025-07-15',
+    type: 'Виставка',
+    lat: 50.9095, lng: 34.796,
+    image: 'art-exhibition.jpg',
+    link: 'events/event3.html',
+    venueId: 3
+  },
+  {
+    name: 'Відкрите тренування з йоги',
+    description: 'Ранкове тренування з йоги у парку.',
+    date: '2025-07-13',
+    type: 'Спорт',
+    lat: 50.908, lng: 34.803,
+    image: 'yoga.jpg',
+    link: 'events/event4.html',
+    venueId: 2
+  },
+  {
+    name: 'Лекція з історії міста',
+    description: 'Пізнавальна лекція з історії міста у Молодіжному центрі.',
+    date: '2025-07-14',
+    type: 'Навчання',
+    lat: 50.9105, lng: 34.795,
+    image: 'history-lecture.jpg',
+    link: 'events/event5.html',
+    venueId: 1
+  },
+  {
+    name: 'Міський фестиваль музики',
+    description: 'Open-air фестиваль музики на міському стадіоні.',
+    date: '2025-07-18',
+    type: 'Музика',
+    lat: 50.912, lng: 34.805,
+    image: 'music-festival.jpg',
+    link: 'events/event6.html',
+    venueId: 5
+  },
+  {
+    name: 'Вечір короткометражок',
+    description: 'Перегляд короткометражних фільмів у Молодіжному центрі.',
+    date: '2025-07-20',
+    type: 'Кіно',
+    lat: 50.9065, lng: 34.797,
+    image: 'short-films.jpg',
+    link: 'events/event7.html',
+    venueId: 5
+  },
+  {
+    name: 'Виставка фотографій',
+    description: 'Фотовиставка сучасних авторів у міській галереї.',
+    date: '2025-07-22',
+    type: 'Виставка',
+    lat: 50.9088, lng: 34.7995,
+    image: 'photo-exhibition.jpg',
+    link: 'events/event8.html',
+    venueId: 3
+  },
+  {
+    name: 'Змагання з бігу',
+    description: 'Міські змагання з бігу у Центральному парку.',
+    date: '2025-07-24',
+    type: 'Спорт',
+    lat: 50.903, lng: 34.8,
+    image: 'running-competition',           // виправив розширення
+    link: 'events/event9.html',
+    venueId: 2
+  },
+  {
+    name: 'Майстер-клас з малювання',
+    description: 'Майстер-клас з акварелі у Художній школі.',
+    date: '2025-07-26',
+    type: 'Навчання',
+    lat: 50.909, lng: 34.804,
+    image: 'art-masterclass.jpg',
+    link: 'events/event10.html',
+    venueId: 1
+  }
 ];
 
+/* === TOP-5 вже проведених заходів ======================== */
+const topEvents = [
+  {
+    name : 'Фестиваль “Jazz on the Lake” 2024',
+    image: 'top-jazz-lake.jpg',   // покладіть у /images
+    link : '#'
+  },
+  {
+    name : '“Sumy Color Run” – благодійний забіг',
+    image: 'top-color-run.jpg',
+    link : '#'
+  },
+  {
+    name : 'Ніч музеїв: інтерактивний квест',
+    image: 'top-night-museum.jpg',
+    link : '#'
+  },
+  {
+    name : 'Відкритий чемпіонат з барбекю',
+    image: 'top-bbq-champ.jpg',
+    link : '#'
+  },
+  {
+    name : 'Summer Tech Meetup 2024',
+    image: 'top-tech-meetup.jpg',
+    link : '#'
+  }
+];
 
-// Глобальний масив для збереження маркерів
+const locations = [
+  { id:1, name:'Площа Незалежності',
+    address:'м. Суми, пл. Незалежності, 1',
+    contact:'Тел: +380123456789',
+    description:'Центральна площа міста для масових заходів.',
+    image:'art-school.jpg' },
+  { id:2, name:'Центральний парк',
+    address:'м. Суми, вул. Паркова, 12',
+    contact:'Тел: +380987654321',
+    description:'Популярне місце для кіно просто неба.',
+    image:'park.jpg' },
+  { id:3, name:'Міська галерея',
+    address:'м. Суми, вул. Мистецька, 5',
+    contact:'Тел: +380555555555',
+    description:'Галерея сучасного мистецтва.',
+    image:'gallery.jpg' },
+  { id:4, name:'Міський стадіон',
+    address:'м. Суми, вул. Спортивна, 3',
+    contact:'Тел: +380112233445',
+    description:'Місце спортивних та музичних open-air подій.',
+    image:'stadium.jpg' },
+  { id:5, name:'Молодіжний центр',
+    address:'м. Суми, вул. Молодіжна, 10',
+    contact:'Тел: +380223344556',
+    description:'Локація для лекцій і культурних подій.',
+    image:'youth-center.jpg' }
+];
+
+/* =========================================================
+   2.  КАРТА (Leaflet)
+   ======================================================= */
+const map = L.map('map').setView([50.907, 34.798], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'&copy; OpenStreetMap'
+}).addTo(map);
+
 let markers = [];
 
-// Функція для відображення подій на карті
-function displayEvents(filteredEvents) {
-    // Видалення старих маркерів
-    markers.forEach(marker => map.removeLayer(marker));
-    markers = [];
+/* =========================================================
+   3.  РЕНДЕР СПИСКУ ПОДІЙ + МАРКЕРІВ
+   ======================================================= */
+function renderEventList(arr){
+  const list = document.getElementById('event-list');
+  if(!list) return;
+  list.innerHTML = '';
 
-    filteredEvents.forEach(event => {
-        const marker = L.marker([event.lat, event.lng]).addTo(map);
-        marker.bindPopup(`<b>${event.name}</b><br>${event.description}<br><i>${event.date} | ${event.type}</i>`);
-        markers.push(marker);
-    });
+  arr.forEach(ev=>{
+    const card = document.createElement('div');
+    card.className = 'event-card';
+    card.innerHTML = `
+      <img src="images/${ev.image}" alt="${ev.name}">
+      <div class="event-details">
+        <h3>${ev.name}</h3>
+        <p>${ev.description}</p>
+        <div class="event-meta">
+          <span>📅 ${ev.date}</span>
+          <span>📂 ${ev.type}</span>
+        </div>
+        <a class="detail-button" href="${ev.link}">Детальніше</a>
+      </div>`;
+    list.appendChild(card);
+  });
 }
 
-// Відображаємо всі події при завантаженні
-displayEvents(events);
+function renderMapMarkers(arr){
+  markers.forEach(m=>map.removeLayer(m));
+  markers = [];
 
-// Фільтрація
-document.getElementById('filterButton').addEventListener('click', () => {
-    const selectedCategory = document.getElementById('category').value;
-    const selectedDate = document.getElementById('date').value;
+  arr.forEach(ev=>{
+    const marker = L.marker([ev.lat, ev.lng]).addTo(map)
+                   .bindPopup(`<b>${ev.name}</b><br>${ev.date}<br>${ev.type}`);
+    marker.on('click', ()=> openModal(ev));
+    markers.push(marker);
+  });
+}
 
-    const filtered = events.filter(event => {
-        const matchCategory = selectedCategory === 'all' || event.type === selectedCategory;
-        const matchDate = !selectedDate || event.date === selectedDate;
-        return matchCategory && matchDate;
-    });
+/* першочерговий рендер «живих» подій */
+renderEventList(events);
+renderMapMarkers(events);
 
-    displayEvents(filtered);
+/* ===== 3-bis.  Рендер TOP-5 ================================= */
+function renderTop5(){
+  const grid = document.getElementById('top-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+
+  topEvents.forEach((ev,i)=>{
+    const card = document.createElement('a');
+    card.href = ev.link;
+    card.className = 'top-card';
+    card.innerHTML = `
+      <span class="top-badge">${i+1}</span>
+      <img src="images/${ev.image}" alt="${ev.name}">
+      <span class="top-caption">${ev.name}</span>`;
+    grid.appendChild(card);
+  });
+}
+
+/* =========================================================
+   4.  ФІЛЬТРИ  +  ПОШУК
+   ======================================================= */
+const searchInput = document.getElementById('searchInput');
+
+/* 1) Загальна функція */
+function applyFilters(){
+  const cat   = document.getElementById('category').value;
+  const date  = document.getElementById('date').value;
+  const query = searchInput.value.trim().toLowerCase();
+
+  const filtered = events.filter(ev=>{
+    const okCat  = cat==='all' || ev.type === cat;
+    const okDate = !date || ev.date === date;
+    const okName = !query || ev.name.toLowerCase().includes(query);
+    return okCat && okDate && okName;
+  });
+
+  renderEventList(filtered);
+  renderMapMarkers(filtered);
+}
+
+/* 2) Кнопка «Фільтрувати» */
+document.getElementById('filterButton')
+        .addEventListener('click', e=>{
+          e.preventDefault();
+          applyFilters();
+        });
+
+/* 3) Сабміт форми пошуку */
+document.getElementById('searchForm')
+        .addEventListener('submit', e=>{
+          e.preventDefault();
+          const q = searchInput.value.trim().toLowerCase();
+          if(!q){ applyFilters(); return; }
+
+          const exact  = events.find(ev=>ev.name.toLowerCase()===q);
+          const inside = events.find(ev=>ev.name.toLowerCase().includes(q));
+          const target = exact || inside;
+
+          if(target && target.link){
+            window.location.href = target.link;
+          }else{
+            alert('На жаль, подію не знайдено 😕');
+            applyFilters();
+          }
+        });
+
+searchInput.addEventListener('input', applyFilters);
+
+/* =========================================================
+   5.  TOGGLE СПИСКУ
+   ======================================================= */
+const toggleHdr = document.getElementById('toggle-event-list');
+const eventDiv  = document.getElementById('event-list');
+toggleHdr.addEventListener('click', ()=>{
+  eventDiv.classList.toggle('active');
+  toggleHdr.textContent = eventDiv.classList.contains('active')
+    ? 'Список подій ▲' : 'Список подій ▼';
+});
+
+/* =========================================================
+   6.  MODAL
+   ======================================================= */
+const modal      = document.getElementById('eventModal');
+const modalTitle = document.getElementById('modal-title');
+const modalImg   = document.getElementById('modal-image');
+const modalDesc  = document.getElementById('modal-description');
+const modalDate  = document.getElementById('modal-date');
+const modalType  = document.getElementById('modal-type');
+const closeBtn   = document.querySelector('.close-button');
+
+const venueBox   = document.getElementById('venue-info');
+const vName   = document.getElementById('modal-venue-name');
+const vAddr   = document.getElementById('modal-venue-address');
+const vCont   = document.getElementById('modal-venue-contact');
+const vDescr  = document.getElementById('modal-venue-description');
+const vImg    = document.getElementById('modal-venue-image');
+
+function openModal(ev){
+  modalTitle.textContent = ev.name;
+  modalImg.src  = `images/${ev.image}`;
+  modalImg.alt  = ev.name;
+  modalDesc.textContent = ev.description;
+  modalDate.textContent = `📅 Дата: ${ev.date}`;
+  modalType.textContent = `📂 Категорія: ${ev.type}`;
+
+  const venue = locations.find(l=>l.id===ev.venueId);
+  if(venue){
+    vName.textContent  = `🏛 Заклад: ${venue.name}`;
+    vAddr.textContent  = `📍 Адреса: ${venue.address}`;
+    vCont.textContent  = `📞 Контакт: ${venue.contact}`;
+    vDescr.textContent = `ℹ️ ${venue.description}`;
+    vImg.src   = `images/${venue.image}`;
+    vImg.alt   = venue.name;
+    venueBox.style.display = 'block';
+  }else{
+    venueBox.style.display = 'none';
+  }
+
+  modal.style.display = 'flex';
+}
+closeBtn.addEventListener('click', ()=> modal.style.display='none');
+window.addEventListener('click', e=>{
+  if(e.target===modal) modal.style.display='none';
+});
+
+/* =========================================================
+   7.  SWIPER
+   ======================================================= */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const swiper = new Swiper('.mySwiper',{
+    slidesPerView:3,
+    spaceBetween:32,
+    loop:true,
+    speed:800,
+    autoplay:{delay:2500, disableOnInteraction:false},
+    pagination:{el:'.swiper-pagination', clickable:true},
+    navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'},
+    breakpoints:{0:{slidesPerView:1.1},600:{slidesPerView:2},900:{slidesPerView:3}}
+  });
+
+  swiper.on('click', sw=>{
+    const idx = sw.clickedSlide?.dataset.index;
+    if(idx!==undefined) openModal(events[idx]);
+  });
+
+  /* ⬇⬇ малюємо ТОП-5 одразу після завантаження DOM */
+  renderTop5();
+});
+
+/* =========================================================
+   8.  BURGER-МЕНЮ
+   ======================================================= */
+const burgerBtn = document.getElementById('burger');
+const navMenu   = document.querySelector('.nav-menu');
+const mainNav   = document.querySelector('.main-nav');
+
+burgerBtn?.addEventListener('click', ()=> mainNav.classList.toggle('menu-open'));
+navMenu?.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', ()=> mainNav.classList.remove('menu-open'));
 });

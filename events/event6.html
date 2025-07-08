@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Міський фестиваль музики</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+<h1>Міський фестиваль музики</h1>
+<img src="../images/music-festival.jpg" alt="Фестиваль музики" class="event-image">
+<p><strong>Дата:</strong> 2025-07-18</p>
+<p><strong>Категорія:</strong> Музика</p>
+<p><strong>Опис:</strong> Міський open-air фестиваль музики на стадіоні. Початок о 16:00, вхід вільний.</p>
+<p><strong>Локація:</strong> Міський стадіон, Суми</p>
+<p><strong>Контакти:</strong> stadium@sumy.ua | +38 (0542) 722-333</p>
+
+<div id="map"></div>
+
+<a href="../index.html" class="back-button">← Повернутися до карти</a>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var map = L.map('map').setView([50.912, 34.805], 16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+L.marker([50.912, 34.805]).addTo(map).bindPopup('Міський фестиваль музики - Міський стадіон').openPopup();
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Майстер-клас з малювання</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+<h1>Майстер-клас з малювання</h1>
+<img src="../images/art-masterclass.jpg" alt="Майстер-клас" class="event-image">
+<p><strong>Дата:</strong> 2025-07-26</p>
+<p><strong>Категорія:</strong> Навчання</p>
+<p><strong>Опис:</strong> Майстер-клас з малювання аквареллю у Художній школі. Початок о 14:00. Участь за реєстрацією.</p>
+<p><strong>Локація:</strong> Художня школа, Суми</p>
+<p><strong>Контакти:</strong> artschool@sumy.ua | +38 (0542) 733-888</p>
+
+<div id="map"></div>
+
+<a href="../index.html" class="back-button">← Повернутися до карти</a>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var map = L.map('map').setView([50.909, 34.804], 16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+L.marker([50.909, 34.804]).addTo(map).bindPopup('Майстер-клас з малювання - Художня школа').openPopup();
+</script>
+</body>
+</html>

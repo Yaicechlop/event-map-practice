@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Змагання з бігу</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+<h1>Змагання з бігу</h1>
+<img src="../images/running-competition.jpg" alt="Змагання з бігу" class="event-image">
+<p><strong>Дата:</strong> 2025-07-24</p>
+<p><strong>Категорія:</strong> Спорт</p>
+<p><strong>Опис:</strong> Міські змагання з бігу для всіх охочих у Центральному парку. Старт о 09:00.</p>
+<p><strong>Локація:</strong> Центральний парк, Суми</p>
+<p><strong>Контакти:</strong> park@sumy.ua | +38 (0542) 700-800</p>
+
+<div id="map"></div>
+
+<a href="../index.html" class="back-button">← Повернутися до карти</a>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var map = L.map('map').setView([50.903, 34.8], 16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+L.marker([50.903, 34.8]).addTo(map).bindPopup('Змагання з бігу - Центральний парк').openPopup();
+</script>
+</body>
+</html>

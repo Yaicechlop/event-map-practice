@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Виставка художників</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+<h1>Виставка художників</h1>
+<img src="../images/art-exhibition.jpg" alt="Виставка" class="event-image">
+<p><strong>Дата:</strong> 2025-07-15</p>
+<p><strong>Категорія:</strong> Виставка</p>
+<p><strong>Опис:</strong> Виставка сучасного живопису та графіки у міській галереї. Відкриття о 17:00.</p>
+<p><strong>Локація:</strong> Міська галерея, Суми</p>
+<p><strong>Контакти:</strong> gallery@sumy.ua | +38 (0542) 755-555</p>
+
+<div id="map"></div>
+
+<a href="../index.html" class="back-button">← Повернутися до карти</a>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var map = L.map('map').setView([50.9095, 34.796], 16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+L.marker([50.9095, 34.796]).addTo(map).bindPopup('Виставка художників - Міська галерея').openPopup();
+</script>
+</body>
+</html>
