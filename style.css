@@ -1037,3 +1037,75 @@ footer{
 
 /* якщо використовуєте клас .footer-dark — продублюйте:  */
 .footer-dark{ margin-top:auto; }
+/* ==== MAP FRAME ================================================= */
+.map-frame{
+    width:90%;
+    max-width:820px;
+    aspect-ratio: 16/9;             /* стабільне спів-відношення сторін */
+    border-radius:18px;
+    overflow:hidden;                /* обрізаємо кути у самого #map   */
+    box-shadow:0 10px 28px rgba(0,0,0,.15);
+    position:relative;
+    margin:22px auto;
+    background:#e8e3ff;             /* при завантаженні тайлів */
+}
+
+/* прибираємо попередню рамку */
+#map{width:100%;height:100%;border:none}
+
+/* тонка градієнт-рамка поверху */
+.map-frame::after{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:18px;
+    padding:2px;                    /* товщина рамки */
+    background:linear-gradient(135deg,#7a2bf9,#b19cff);
+    -webkit-mask:
+       linear-gradient(#fff 0 0) content-box,
+       linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;     /* «вирізаємо» центр */
+            mask-composite:exclude;
+    pointer-events:none;
+}
+
+/* переносимо стандартні елементи керування вниз/вправо */
+.leaflet-right .leaflet-control{
+    margin-right:14px !important;
+}
+.leaflet-bottom .leaflet-control{
+    margin-bottom:14px !important;
+}
+
+/* фіолетові кнопки + ховер */
+.leaflet-control-zoom a{
+    background:#7a2bf9 !important;
+    color:#fff !important;
+    border:none !important;
+    box-shadow:0 2px 6px rgba(0,0,0,.18);
+    transition:background .25s;
+}
+.leaflet-control-zoom a:hover{
+    background:#4b1bb1 !important;
+}
+
+/* білий scale-bar */
+.leaflet-control-scale-line{
+    background:#fff !important;
+    border:1px solid #ddd !important;
+    color:#333 !important;
+}
+
+/* кастомний маркер (жовто-фіолетовий кружечок) */
+.custom-marker{
+    width:18px;height:18px;
+    border:4px solid #ffb703;
+    border-radius:50%;
+    background:#7a2bf9;
+    box-shadow:0 0 0 2px #fff,
+               0 0 8px rgba(0,0,0,.25);
+}
+/* ==== Ховаємо елементи Leaflet, коли відкрита модалка ==== */
+body.modal-open .leaflet-control-zoom,
+body.modal-open .leaflet-control-attribution{
+  display: none !important;
+}

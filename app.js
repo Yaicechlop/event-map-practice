@@ -38,7 +38,7 @@ const events = [
     date: '2025-07-13',
     type: 'Спорт',
     lat: 50.908, lng: 34.803,
-    image: 'yoga.jpg',
+    image: 'yoga-training.jpg',
     link: 'events/event4.html',
     venueId: 2
   },
@@ -88,7 +88,7 @@ const events = [
     date: '2025-07-24',
     type: 'Спорт',
     lat: 50.903, lng: 34.8,
-    image: 'running-competition',           // виправив розширення
+    image: 'running-competition.jpg',           // ← виправлено розширення
     link: 'events/event9.html',
     venueId: 2
   },
@@ -104,58 +104,24 @@ const events = [
   }
 ];
 
-/* === TOP-5 вже проведених заходів ======================== */
-const topEvents = [
-  {
-    name : 'Фестиваль “Jazz on the Lake” 2024',
-    image: 'top-jazz-lake.jpg',   // покладіть у /images
-    link : '#'
-  },
-  {
-    name : '“Sumy Color Run” – благодійний забіг',
-    image: 'top-color-run.jpg',
-    link : '#'
-  },
-  {
-    name : 'Ніч музеїв: інтерактивний квест',
-    image: 'top-night-museum.jpg',
-    link : '#'
-  },
-  {
-    name : 'Відкритий чемпіонат з барбекю',
-    image: 'top-bbq-champ.jpg',
-    link : '#'
-  },
-  {
-    name : 'Summer Tech Meetup 2024',
-    image: 'top-tech-meetup.jpg',
-    link : '#'
-  }
-];
-
 const locations = [
-  { id:1, name:'Площа Незалежності',
-    address:'м. Суми, пл. Незалежності, 1',
+  { id:1, name:'Площа Незалежності', address:'м. Суми, пл. Незалежності, 1',
     contact:'Тел: +380123456789',
     description:'Центральна площа міста для масових заходів.',
-    image:'art-school.jpg' },
-  { id:2, name:'Центральний парк',
-    address:'м. Суми, вул. Паркова, 12',
+    image:'square.jpg' },
+  { id:2, name:'Центральний парк', address:'м. Суми, вул. Паркова, 12',
     contact:'Тел: +380987654321',
     description:'Популярне місце для кіно просто неба.',
     image:'park.jpg' },
-  { id:3, name:'Міська галерея',
-    address:'м. Суми, вул. Мистецька, 5',
+  { id:3, name:'Міська галерея', address:'м. Суми, вул. Мистецька, 5',
     contact:'Тел: +380555555555',
     description:'Галерея сучасного мистецтва.',
     image:'gallery.jpg' },
-  { id:4, name:'Міський стадіон',
-    address:'м. Суми, вул. Спортивна, 3',
+  { id:4, name:'Міський стадіон', address:'м. Суми, вул. Спортивна, 3',
     contact:'Тел: +380112233445',
     description:'Місце спортивних та музичних open-air подій.',
     image:'stadium.jpg' },
-  { id:5, name:'Молодіжний центр',
-    address:'м. Суми, вул. Молодіжна, 10',
+  { id:5, name:'Молодіжний центр', address:'м. Суми, вул. Молодіжна, 10',
     contact:'Тел: +380223344556',
     description:'Локація для лекцій і культурних подій.',
     image:'youth-center.jpg' }
@@ -172,11 +138,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 let markers = [];
 
 /* =========================================================
-   3.  РЕНДЕР СПИСКУ ПОДІЙ + МАРКЕРІВ
+   3.  РЕНДЕР СПИСОК + МАРКЕРИ
    ======================================================= */
 function renderEventList(arr){
   const list = document.getElementById('event-list');
-  if(!list) return;
   list.innerHTML = '';
 
   arr.forEach(ev=>{
@@ -202,50 +167,31 @@ function renderMapMarkers(arr){
   markers = [];
 
   arr.forEach(ev=>{
-    const marker = L.marker([ev.lat, ev.lng]).addTo(map)
-                   .bindPopup(`<b>${ev.name}</b><br>${ev.date}<br>${ev.type}`);
-    marker.on('click', ()=> openModal(ev));
-    markers.push(marker);
+    const m = L.marker([ev.lat, ev.lng]).addTo(map)
+               .bindPopup(`<b>${ev.name}</b><br>${ev.date}<br>${ev.type}`);
+    m.on('click', ()=> openModal(ev));
+    markers.push(m);
   });
 }
 
-/* першочерговий рендер «живих» подій */
+/* первинний рендер */
 renderEventList(events);
 renderMapMarkers(events);
 
-/* ===== 3-bis.  Рендер TOP-5 ================================= */
-function renderTop5(){
-  const grid = document.getElementById('top-grid');
-  if(!grid) return;
-  grid.innerHTML = '';
-
-  topEvents.forEach((ev,i)=>{
-    const card = document.createElement('a');
-    card.href = ev.link;
-    card.className = 'top-card';
-    card.innerHTML = `
-      <span class="top-badge">${i+1}</span>
-      <img src="images/${ev.image}" alt="${ev.name}">
-      <span class="top-caption">${ev.name}</span>`;
-    grid.appendChild(card);
-  });
-}
-
 /* =========================================================
-   4.  ФІЛЬТРИ  +  ПОШУК
+   4.  ФІЛЬТРИ + ПОШУК
    ======================================================= */
 const searchInput = document.getElementById('searchInput');
 
-/* 1) Загальна функція */
 function applyFilters(){
   const cat   = document.getElementById('category').value;
   const date  = document.getElementById('date').value;
-  const query = searchInput.value.trim().toLowerCase();
+  const q     = searchInput.value.trim().toLowerCase();
 
   const filtered = events.filter(ev=>{
     const okCat  = cat==='all' || ev.type === cat;
     const okDate = !date || ev.date === date;
-    const okName = !query || ev.name.toLowerCase().includes(query);
+    const okName = !q   || ev.name.toLowerCase().includes(q);
     return okCat && okDate && okName;
   });
 
@@ -253,24 +199,20 @@ function applyFilters(){
   renderMapMarkers(filtered);
 }
 
-/* 2) Кнопка «Фільтрувати» */
 document.getElementById('filterButton')
         .addEventListener('click', e=>{
           e.preventDefault();
           applyFilters();
         });
 
-/* 3) Сабміт форми пошуку */
 document.getElementById('searchForm')
         .addEventListener('submit', e=>{
           e.preventDefault();
           const q = searchInput.value.trim().toLowerCase();
           if(!q){ applyFilters(); return; }
-
           const exact  = events.find(ev=>ev.name.toLowerCase()===q);
           const inside = events.find(ev=>ev.name.toLowerCase().includes(q));
           const target = exact || inside;
-
           if(target && target.link){
             window.location.href = target.link;
           }else{
@@ -282,14 +224,14 @@ document.getElementById('searchForm')
 searchInput.addEventListener('input', applyFilters);
 
 /* =========================================================
-   5.  TOGGLE СПИСКУ
+   5.  TOGGLE СПИСОК
    ======================================================= */
 const toggleHdr = document.getElementById('toggle-event-list');
 const eventDiv  = document.getElementById('event-list');
 toggleHdr.addEventListener('click', ()=>{
   eventDiv.classList.toggle('active');
   toggleHdr.textContent = eventDiv.classList.contains('active')
-    ? 'Список подій ▲' : 'Список подій ▼';
+      ? 'Список подій ▲' : 'Список подій ▼';
 });
 
 /* =========================================================
@@ -303,12 +245,12 @@ const modalDate  = document.getElementById('modal-date');
 const modalType  = document.getElementById('modal-type');
 const closeBtn   = document.querySelector('.close-button');
 
-const venueBox   = document.getElementById('venue-info');
-const vName   = document.getElementById('modal-venue-name');
-const vAddr   = document.getElementById('modal-venue-address');
-const vCont   = document.getElementById('modal-venue-contact');
-const vDescr  = document.getElementById('modal-venue-description');
-const vImg    = document.getElementById('modal-venue-image');
+const venueBox = document.getElementById('venue-info');
+const vName  = document.getElementById('modal-venue-name');
+const vAddr  = document.getElementById('modal-venue-address');
+const vCont  = document.getElementById('modal-venue-contact');
+const vDes   = document.getElementById('modal-venue-description');
+const vImg   = document.getElementById('modal-venue-image');
 
 function openModal(ev){
   modalTitle.textContent = ev.name;
@@ -318,25 +260,35 @@ function openModal(ev){
   modalDate.textContent = `📅 Дата: ${ev.date}`;
   modalType.textContent = `📂 Категорія: ${ev.type}`;
 
-  const venue = locations.find(l=>l.id===ev.venueId);
-  if(venue){
+  const venue = locations.find(l => l.id === ev.venueId);
+  if (venue){
     vName.textContent  = `🏛 Заклад: ${venue.name}`;
     vAddr.textContent  = `📍 Адреса: ${venue.address}`;
     vCont.textContent  = `📞 Контакт: ${venue.contact}`;
-    vDescr.textContent = `ℹ️ ${venue.description}`;
-    vImg.src   = `images/${venue.image}`;
-    vImg.alt   = venue.name;
+    vDes.textContent   = `ℹ️ ${venue.description}`;
+    vImg.src = `images/${venue.image}`;
+    vImg.alt = venue.name;
     venueBox.style.display = 'block';
   }else{
     venueBox.style.display = 'none';
   }
 
+  document.body.classList.add('modal-open');   // ← ховаємо елементи Leaflet
   modal.style.display = 'flex';
 }
-closeBtn.addEventListener('click', ()=> modal.style.display='none');
-window.addEventListener('click', e=>{
-  if(e.target===modal) modal.style.display='none';
+
+/* --- закриття модалки --- */
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  document.body.classList.remove('modal-open');
 });
+window.addEventListener('click', (e) => {
+  if (e.target === modal){
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+  }
+});
+
 
 /* =========================================================
    7.  SWIPER
@@ -352,14 +304,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'},
     breakpoints:{0:{slidesPerView:1.1},600:{slidesPerView:2},900:{slidesPerView:3}}
   });
-
   swiper.on('click', sw=>{
     const idx = sw.clickedSlide?.dataset.index;
     if(idx!==undefined) openModal(events[idx]);
   });
-
-  /* ⬇⬇ малюємо ТОП-5 одразу після завантаження DOM */
-  renderTop5();
 });
 
 /* =========================================================
@@ -370,6 +318,6 @@ const navMenu   = document.querySelector('.nav-menu');
 const mainNav   = document.querySelector('.main-nav');
 
 burgerBtn?.addEventListener('click', ()=> mainNav.classList.toggle('menu-open'));
-navMenu?.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', ()=> mainNav.classList.remove('menu-open'));
+navMenu?.querySelectorAll('a').forEach(link=>{
+  link.addEventListener('click', ()=> mainNav.classList.remove('menu-open'));
 });
