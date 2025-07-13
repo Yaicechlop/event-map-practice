@@ -351,3 +351,38 @@ document.addEventListener('DOMContentLoaded', () => {
     msg.textContent = '✅ Подію додано!';
   });
 });
+/* =========================================================
+   11.  Count-Up статистика
+   ======================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const counters = [...document.querySelectorAll('.stat__num')];
+  if (!counters.length) return;
+
+  /* квадратична easeInOut */
+  const ease = t => (t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+
+  const animate = (el, target) => {
+    const dur = 1500;                   // 1.5 c
+    const start = performance.now();
+
+    const step = now => {
+      const p = Math.min((now - start) / dur, 1);
+      el.textContent = Math.floor(target * ease(p));
+      if (p < 1) requestAnimationFrame(step);
+      else       el.textContent = target; // фінальне число
+    };
+    requestAnimationFrame(step);
+  };
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(ent => {
+      if (ent.isIntersecting) {
+        const target = +ent.target.dataset.target || 0;
+        animate(ent.target, target);
+        io.unobserve(ent.target);       // анімуємо лише один раз
+      }
+    });
+  }, { threshold: .5 });                // 50 % блоку у вікні
+
+  counters.forEach(c => io.observe(c));
+});
