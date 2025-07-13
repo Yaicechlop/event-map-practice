@@ -1,0 +1,1499 @@
+/* Загальні стилі */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    margin: 15px 0;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(64, 2, 80, 0.4), rgb(60, 3, 110)),
+                url('images/hero-bg.jpg') center/cover no-repeat;
+    color: #fff;
+    width: 100%;
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hero-content {
+    background: rgba(149, 10, 192, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+.hero h1 {
+    font-size: 32px;
+    margin: 0 0 10px 0;
+}
+.hero p {
+    font-size: 18px;
+    margin: 0;
+}
+
+/* About Section */
+.about {
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Carousel Section */
+.carousel-section {
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+.carousel {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    justify-content: center;
+}
+.carousel-item {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    min-width: 180px;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+.carousel-item:hover {
+    transform: scale(1.05);
+}
+.carousel-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+.carousel-item p {
+    padding: 5px;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Statistics Section */
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+}
+.stat-card {
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 120px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.stat-card h3 {
+    font-size: 24px;
+    margin: 0;
+    color: #ee00ff;
+}
+.stat-card p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+
+/* Filters */
+#filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+#filters select, #filters input[type="date"], #filters button {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#filters button {
+    background: #7700ff;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+#filters button:hover {
+    background: #7700ff;
+}
+
+/* Map */
+#map {
+    width: 90%;
+    height: 500px;
+    max-width: 800px;
+    border: 2px solid #444;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+/* Event List Toggle Animation */
+#event-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.3s;
+}
+#event-list.active {
+    max-height: 2000px;
+    padding-top: 10px;
+    transition: max-height 0.5s ease-in, padding 0.3s;
+}
+
+/* Event Cards */
+#event-list {
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.event-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    gap: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.event-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.event-card img {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.event-details {
+    flex: 1;
+}
+.event-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #7700ff;
+}
+.event-details p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: #555;
+}
+.event-meta {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    align-items: center;
+    margin-top: 5px;
+}
+.event-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Detail Button */
+.detail-button {
+    background: #7700ff;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+    margin-top: 8px;
+}
+.detail-button:hover {
+    background: #7700ff;
+}
+
+/* Back Button for Event Pages */
+.back-button {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #7700ff;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+.back-button:hover {
+    background: #7700ff;
+}
+
+/* Event Image in Event Pages */
+.event-image {
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    margin: 15px auto;
+    display: block;
+}
+
+/* Adaptivity */
+@media (max-width: 600px) {
+    #map {
+        height: 300px;
+    }
+}
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+    text-align: center;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+#venue-info {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+#venue-info img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    margin: 10px auto;
+    display: block;
+}
+/* ---------- ПАЛІТРА ---------- */
+:root {
+    /* акцентні відтінки */
+    --primary:  #6A0DAD; /* насичений фіолетовий */
+    --primary-dark: #4B0082; /* темніший фіолетовий для hover */
+    --secondary: #B19CD9;    /* м’який лавандовий */
+
+    /* базові кольори */
+    --background: #ffffff;   /* білий фон */
+    --card-bg:    #f9f8fd;   /* ледь-фіолетовий для карток / модалок */
+    --text:       #2d2143;   /* темно-фіолетовий текст */
+    --modal-bg:   rgba(0,0,0,0.6); /* затемнення фону під modal */
+}
+
+/* ---------- БАЗА ---------- */
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:var(--background);
+    color:var(--text);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* ---------- HEADER ---------- */
+header{
+    width:100%;
+    text-align:center;
+    padding:24px 10px;
+    background:var(--background);     /* БІЛИЙ, без сірого */
+    color:var(--text);
+    border-bottom:2px solid var(--card-bg);
+}
+header h1{margin:0;font-size:28px}
+header p {margin:6px 0 0;font-size:15px}
+
+/* ---------- ФІЛЬТРИ ---------- */
+#filters{
+    display:flex;flex-wrap:wrap;gap:10px;
+    justify-content:center;
+    margin:20px 0;
+}
+#filters select,
+#filters input[type="date"]{
+    padding:10px;border:1px solid #ccc;border-radius:6px;
+    font-size:14px;min-width:140px
+}
+#filters button{
+    padding:10px 18px;font-size:14px;
+    border:none;border-radius:6px;cursor:pointer;
+    background:var(--primary);color:#fff;
+    transition:background .25s
+}
+#filters button:hover{background:var(--primary-dark)}
+
+/* ---------- MAP ---------- */
+#map{
+    width:90%;max-width:800px;height:450px;
+    border-radius:10px;margin:10px 0
+}
+
+/* ---------- TOGGLE СПИСКУ ---------- */
+#toggle-event-list{
+    cursor:pointer;
+    background:var(--primary);
+    color:#fff;
+    padding:10px 18px;
+    border-radius:8px;
+    user-select:none;
+    transition:background .25s;
+    margin-top:10px
+}
+#toggle-event-list:hover{background:var(--primary-dark)}
+
+/* ---------- СПИСОК ПОДІЙ ---------- */
+#event-list{
+    width:90%;max-width:800px;
+    display:flex;flex-direction:column;gap:10px;
+    overflow:hidden;max-height:0;
+    transition:max-height .5s ease,padding .3s
+}
+#event-list.active{max-height:2000px;padding:10px 0}
+
+.event-card{
+    background:var(--card-bg);
+    border-radius:8px;
+    box-shadow:0 4px 8px rgba(0,0,0,.05);
+    display:flex;gap:12px;align-items:center;
+    padding:12px;transition:transform .2s,box-shadow .2s
+}
+.event-card:hover{
+    transform:scale(1.02);
+    box-shadow:0 6px 12px rgba(0,0,0,.10);
+}
+.event-card img{
+    width:100px;height:80px;object-fit:cover;border-radius:6px
+}
+.event-details{flex:1}
+.event-details h3{
+    margin:0;font-size:18px;color:var(--primary-dark)
+}
+.event-details p{margin:4px 0;font-size:14px}
+
+/* ---------- КНОПКА “Детальніше” ---------- */
+.detail-button{
+    display:inline-block;
+    margin-top:6px;
+    padding:6px 14px;border-radius:6px;
+    background:var(--primary);color:#fff;
+    text-decoration:none;font-size:14px;
+    transition:background .25s
+}
+.detail-button:hover{background:var(--primary-dark)}
+
+/* ---------- МОДАЛЬНЕ ВІКНО ---------- */
+.modal{
+    display:none;position:fixed;inset:0;
+    background:var(--modal-bg);
+    justify-content:center;align-items:center;
+    z-index:999
+}
+.modal-content{
+    background:var(--card-bg);
+    padding:24px;border-radius:12px;
+    max-width:90%;max-height:90%;
+    overflow-y:auto;position:relative;
+    animation:fadeIn .3s ease
+}
+.close-button{
+    position:absolute;top:10px;right:15px;
+    font-size:26px;cursor:pointer;color:var(--text)
+}
+.modal-img{
+    width:100%;max-width:400px;
+    border-radius:8px;margin:12px auto;display:block
+}
+
+/* секція закладу у modal */
+#venue-info{
+    background:#f1eefc;
+    padding:16px;border-radius:10px;margin-top:24px
+}
+#venue-info h3{text-align:center;margin:0 0 10px 0;color:var(--primary-dark)}
+#venue-info img{
+    width:100%;max-width:400px;border-radius:8px;
+    margin:12px auto;display:block
+}
+
+/* ---------- СТАТКАРТКИ ---------- */
+.stats{
+    display:flex;flex-wrap:wrap;gap:20px;
+    justify-content:center;padding:20px 0
+}
+.stat-card{
+    background:var(--card-bg);
+    border-radius:10px;padding:18px 26px;
+    text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.05)
+}
+.stat-card h3{
+    margin:0;font-size:26px;color:var(--primary)
+}
+.stat-card p{margin:6px 0 0;font-size:14px}
+
+/* ---------- ПІДВАЛ ---------- */
+footer{
+    width:100%;text-align:center;
+    background:var(--primary);
+    color:#fff;font-size:14px;
+    padding:18px 10px;margin-top:30px
+}
+
+/* ---------- АДАПТИВ ---------- */
+@media(max-width:600px){
+    #map{height:320px}
+    header h1{font-size:22px}
+}
+
+/* ---------- АНІМАЦІЯ ---------- */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+/* ---- контейнери й секції ---- */
+.container{
+    width:100%;
+    max-width:1100px;
+    margin-inline:auto;
+    padding-inline:16px;
+}
+.section{padding-block:60px}           /* верх-низ відступ для усіх секцій */
+.center-text{text-align:center}
+
+/* ---------- HERO (фото + фіолетовий оверлей) ---------- */
+.hero{
+    position: relative;                 /* для псевдо-шара */
+    min-height: 330px;                  /* потрібна висота */
+    display:flex; flex-direction:column;
+    justify-content:center; align-items:center;
+    text-align:center;
+    color:#fff;
+    overflow:hidden;                    /* обрізати лишнє */
+
+    /* саме фото (під градієнтом) */
+    background:url('images/kontsert_ruki_siluety_122478_1920x1080.jpg')
+               center/cover no-repeat;
+}
+/* напівпрозорий фіолетовий градієнт поверх фото */
+.hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(to bottom,
+                rgba(124, 72, 255, 0) 0%,
+                rgba(111, 33, 221, 0.13) 50%,
+                rgba(91, 0, 170, 0.511) 100%);
+    z-index:0;                          /* під текстом */
+}
+
+/* самі написи зверху шару */
+.hero .hero-box{ 
+    position:relative;                  /* вище over-lay */
+    z-index:1;
+}
+
+
+/* ---- карусель: в ряд, навіть на мобайлі скрол ---- */
+.carousel{
+    display:flex;gap:14px;overflow-x:auto;padding-block:6px
+}
+.carousel-item{
+    min-width:180px;background:var(--card-bg);border-radius:8px;
+    box-shadow:0 2px 6px rgb(0 0 0 / .08);text-align:center;
+}
+.carousel-item img{width:100%;height:120px;object-fit:cover;border-radius:8px 8px 0 0}
+.carousel-item p{margin:6px;font-size:13px}
+
+/* ---- статистика: авто-fit grid ---- */
+.stats-grid{
+    display:grid;gap:18px;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+}
+
+/* ---- кнопка-тогл ---- */
+.toggle-btn{
+    display:inline-block;
+    background:var(--primary);
+    color:#fff;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:background .25s
+}
+.toggle-btn:hover{background:var(--primary-dark)}
+/* будь-який .container всередині .section центрує весь внутрішній inline-контент */
+.section .container{
+    text-align:center;         
+}
+
+
+
+.toggle-btn{
+    display:inline-flex;        
+    align-items:center;
+    justify-content:center;
+    gap:6px;                    
+    margin:20px auto 0;         
+}
+/* ----------  TOP BAR  ---------- */
+.topbar{
+    position:sticky; top:0; z-index:1000;
+    display:flex; gap:32px; justify-content:center;
+    padding:12px 24px;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(10px);
+}
+.topbar a{color:#6A0DAD;font-weight:600;text-decoration:none;}
+.topbar a:hover{color:#42077e}
+
+/* ----------  ХВИЛЯ  ---------- */
+.wave-top{display:block;width:100%;margin-bottom:-1px}
+
+/* ----------  GRID ДЛЯ СПИСКУ ПОДІЙ  ---------- */
+.event-grid{
+    display:grid; gap:24px;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+}
+
+/* ----------  КАРТОЧКА (hover)  ---------- */
+.event-card{
+    transition:transform .25s, box-shadow .25s;
+}
+.event-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+/* ----------  STICKY CTA (кнопка-розгортання)  ---------- */
+.toggle-btn{
+    display:inline-flex;
+    align-items:center; justify-content:center; gap:6px;
+    margin:32px auto 0;
+    background:#6A0DAD; color:#fff;
+    padding:10px 22px; border-radius:10px;
+    cursor:pointer; transition:background .25s;
+    text-align:center;
+}
+.toggle-btn:hover{background:#4b0b91}
+/* ===== Фіолетова панель ===== */
+:root{
+  --nav-bg:#7a2bf9;
+  --nav-bg-dark:#5d21bd;
+  --nav-text:#ffffff;
+}
+
+.main-nav{
+  position:sticky; top:0; z-index:1000;
+  display:flex; justify-content:space-between; align-items:center;
+  gap:32px;
+  width:100%; padding:12px 32px;
+  background:var(--nav-bg);
+  color:var(--nav-text);
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+.nav-left{display:flex; align-items:center; gap:24px;}
+.nav-right{display:flex; align-items:center; gap:20px;}
+
+.logo{color:#fff; font-size:22px; font-weight:700; text-decoration:none; display:flex; align-items:center; gap:6px;}
+.logo-icon{font-size:20px;}
+
+.icon-btn{
+  background:none; border:none; color:#fff; font-size:22px;
+  cursor:pointer; padding:4px;
+}
+.icon-btn:hover{color:#e1d4ff;}
+
+.nav-menu{display:flex; gap:18px; list-style:none; margin:0; padding:0;}
+.nav-menu a{color:#fff; text-decoration:none; font-weight:600; letter-spacing:0.4px;}
+.nav-menu a:hover{color:#e1d4ff;}
+
+.login-link{color:#fff; text-decoration:none; font-weight:600;}
+.login-link:hover{color:#e1d4ff}
+
+/* responsivity */
+@media(max-width:900px){
+  .nav-menu{display:none;}     /* ховаємо пунктирне меню, показуємо гамбургер */
+  #burger{display:block;}
+}
+@media(min-width:901px){
+  #burger{display:none;}
+}
+/* ─── XXL-картки у стилі concert.ua ────────────────────────── */
+
+.carousel           { gap: 80px; }              /* більший проміжок */
+
+.carousel-item{
+  min-width:720px; max-width:720px;
+  background:#fff;                             /* суцільно білий */
+  border:5px solid #f7f7f7;                    /* товста «рамка-паспорт» */
+  outline:1px solid #e0e0e0;                   /* тонкий сірий кант */
+  border-radius:0;                             /* прямі кути */
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
+}
+.carousel-item:hover{
+  transform:translateY(-10px);
+}
+
+.carousel-item img{
+  display:block;
+  width:100%; height:720px;
+  object-fit:cover;
+}
+
+.carousel-item p{
+  font: 700 28px/1.15 "Roboto Condensed", Arial, sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  color:#111;
+  padding:22px 24px;
+  margin:0;
+}
+
+/* мобільна адаптація (залишаємо квадрат 340 px) */
+@media(max-width:600px){
+  .carousel-item{min-width:340px;max-width:340px;}
+  .carousel-item img{height:340px;}
+  .carousel-item p{font-size:16px;padding:12px;}
+}
+/* ============ SWIPER (блок «Найближчі події») ============ */
+
+/* корінь слайдера */
+.swiper {
+  --swiper-navigation-size: 32px;          /* розмір SVG-стрілок */
+  --swiper-theme-color: var(--primary);    /* колір стрілок і активної крапки */
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-block: 10px 40px;               /* місце під крапки пагінації */
+  overflow: hidden;                       /* прибираємо горизонтальний скрол */
+}
+
+/* самі слайди */
+.swiper-slide {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+  overflow: hidden;
+  transition: transform .35s ease;
+}
+.swiper-slide:hover {                     /* легкий zoom on hover */
+  transform: translateY(-6px);
+}
+
+/* картинка всередині */
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 340px;          /* фіксована висота, щоб усі картки були рівні */
+  object-fit: cover;
+}
+
+/* підпис під карткою */
+.slide-caption {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-align: center;
+  padding: 12px 8px 18px;
+  color: #111;
+  text-transform: uppercase;
+  font-size: 18px;
+  border-top: 1px solid #ececec;
+}
+
+/* стрілки */
+.swiper-button-prev,
+.swiper-button-next {
+  top: 50%;
+  translate: 0 -50%;
+  background: #fff;
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  transition: background .25s, color .25s;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background: var(--primary);
+  color: #fff;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {              /* прибираємо дефолтний текст */
+  font-size: 20px;
+}
+
+/* крапки-пагінація */
+.swiper-pagination-bullets {
+  bottom: 10px !important;
+}
+.swiper-pagination-bullet {
+  width: 10px; height: 10px;
+  background: #c5c5c5;
+  opacity: 1;
+  transition: background .25s;
+}
+.swiper-pagination-bullet-active {
+  background: var(--primary);
+}
+
+/* ——— адаптив під мобілку ——— */
+@media (max-width: 600px) {
+  .swiper-slide img { height: 280px; }
+  .slide-caption { font-size: 16px; padding-block: 10px 14px; }
+  .swiper-button-prev, .swiper-button-next { display: none; } /* ховаємо стрілки */
+}
+.about-box { max-width: 820px; }
+.about-list{
+  margin: 20px 0 30px;
+  padding-left: 20px;
+  list-style: disc;
+  line-height: 1.5;
+}
+.about-list li + li{ margin-top: 8px; }
+.search-box{display:flex;align-items:center;gap:6px}
+.search-box input{
+  width:140px;max-width:45vw;padding:6px 8px;
+  border:1px solid var(--primary);border-radius:6px;font-size:14px;
+}
+.search-box input:focus{outline:none;box-shadow:0 0 0 2px rgba(136,84,255,.25)}
+/* ==== TOP-5 GRID ==== */
+.top-grid{
+  display:grid;
+  gap:24px;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  justify-items:center;
+  margin-top:32px;
+}
+.top-card{
+  position:relative;
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+  transition:transform .25s;
+  text-align:center;
+  width:100%;max-width:220px;
+}
+.top-card:hover{transform:translateY(-4px) scale(1.03);}
+.top-card img{width:100%;height:140px;object-fit:cover;}
+.top-card h3{font-size:16px;padding:8px 6px 0;margin:0;color:#333;}
+.top-card .meta{font-size:14px;padding-bottom:10px;color:#666;margin:0;}
+.badge{
+  position:absolute;top:6px;left:6px;
+  background:#7c24ff;color:#fff;font-weight:700;
+  padding:2px 8px;border-radius:4px;font-size:13px;
+}
+/* --------------------------------------------------
+   TOP-5 найпопулярніших подій
+   -------------------------------------------------- */
+
+/* Контейнер-сітка */
+.top-grid{
+  display:grid;
+  gap:1.2rem;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  margin-top:1.5rem;
+}
+
+/* Картка події */
+.top-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+  box-shadow:0 4px 16px rgba(0,0,0,.08);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.top-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+/* Фото (з фіксованим співвідношенням 3:2) */
+.top-card img{
+  width:100%;
+  aspect-ratio:3/2;
+  object-fit:cover;
+  display:block;
+}
+
+/* Підпис під фото */
+.top-card .top-caption{
+  padding:.6rem .8rem;
+  background:#fff;
+  font-weight:600;
+  text-align:center;
+  font-size:.95rem;
+}
+
+/* Бейдж із номером місця */
+.top-badge{
+  position:absolute;
+  top:.6rem;
+  left:.6rem;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#7c4dff;          /* фіолетовий */
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Roboto Condensed',sans-serif;
+  font-size:1.1rem;
+  box-shadow:0 2px 6px rgba(0,0,0,.25);
+  user-select:none;
+  pointer-events:none;         /* не заважає кліку */
+}
+
+/* Мобільна дрібніша сітка */
+@media(max-width:480px){
+  .top-grid{
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  }
+}
+/* ===== Top-5 ===== */
+.top-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.top-card{position:relative;overflow:hidden;width:180px;border-radius:10px;
+          text-decoration:none;color:#fff}
+.top-card img{width:100%;height:120px;object-fit:cover;filter:brightness(0.8);
+              transition:transform .3s}
+.top-card:hover img{transform:scale(1.05)}
+.top-badge{position:absolute;top:6px;left:6px;background:#ffb703;
+           color:#000;font-weight:bold;border-radius:50%;width:32px;height:32px;
+           display:flex;align-items:center;justify-content:center}
+.top-caption{display:block;padding:6px 8px;background:#000a;text-align:center;
+             font-size:14px;min-height:48px}
+/* ===== Top-5 ===== */
+.top-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:32px;          /* ширший проміжок – виглядає «дихаюче» */
+  justify-content:center;
+}
+
+.top-card{
+  position:relative;
+  width:180px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;          /* біла «підкладка» під назвою */
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+  text-decoration:none;
+  transition:transform .25s;
+}
+.top-card:hover{transform:translateY(-4px)}
+
+/* картинка */
+.top-card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  display:block;
+}
+
+/* Номер (бейдж) */
+.top-badge{
+  position:absolute;
+  top:8px; left:8px;
+  z-index:2;
+  width:32px; height:32px;
+  border-radius:50%;
+  background:#ffb703;
+  color:#000;
+  font-weight:700;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+/* Підпис під картинкою */
+.top-caption{
+  display:block;
+  padding:10px 8px;
+  min-height:56px;          /* щоб усі картки були однакові */
+  font-size:14px;
+  font-weight:500;
+  color:#2b2b2b;
+  text-align:center;
+}
+/* ░░░ РЕЙТИНГ (rating.html) ░░░ */
+
+/* hero для рейтинг-сторінки — фіолетовий градієнт */
+.hero--rating{
+    background: linear-gradient(135deg,#7b1fa2 0%,#512da8 100%);
+    color:#fff;
+    text-align:center;
+}
+.hero--rating h1{font-size:36px;margin-bottom:8px}
+.hero--rating p {font-size:18px;max-width:600px;margin:0 auto}
+
+/* сітка карток */
+.rating-grid{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:32px;
+    justify-content:center;
+    padding:0;
+}
+.rating-card{
+    position:relative;
+    width:200px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    overflow:hidden;
+    transition:transform .25s;
+}
+.rating-card:hover{transform:translateY(-6px)}
+
+.rating-card img{
+    width:100%;height:140px;object-fit:cover;display:block;
+}
+
+.rating-title{
+    font-weight:700;
+    text-align:center;
+    line-height:1.3;
+    padding:12px 10px 18px;
+    font-size:15px;
+}
+
+/* номер-бейдж */
+.badge{
+    position:absolute;
+    top:10px;left:10px;
+    width:32px;height:32px;
+    border-radius:50%;
+    background:#ffc107;    /* жовтий */
+    color:#000;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 6px rgba(0,0,0,.25);
+}
+
+/* активний пункт у меню */
+.nav-menu .active{
+    color:#ffc107;
+}
+/* ==== Sticky footer (усі сторінки) ===================== */
+html, body{
+    height: 100%;                /* тіло займає повну висоту */
+}
+
+body{
+    display: flex;               /* робимо flex-колонку */
+    flex-direction: column;
+}
+
+footer{
+    margin-top: auto;            /* штовхає футер вниз */
+}
+
+/* якщо використовуєте клас .footer-dark — продублюйте:  */
+.footer-dark{ margin-top:auto; }
+/* ==== MAP FRAME ================================================= */
+.map-frame{
+    width:90%;
+    max-width:820px;
+    aspect-ratio: 16/9;             /* стабільне спів-відношення сторін */
+    border-radius:18px;
+    overflow:hidden;                /* обрізаємо кути у самого #map   */
+    box-shadow:0 10px 28px rgba(0,0,0,.15);
+    position:relative;
+    margin:22px auto;
+    background:#e8e3ff;             /* при завантаженні тайлів */
+}
+
+/* прибираємо попередню рамку */
+#map{width:100%;height:100%;border:none}
+
+/* тонка градієнт-рамка поверху */
+.map-frame::after{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:18px;
+    padding:2px;                    /* товщина рамки */
+    background:linear-gradient(135deg,#7a2bf9,#b19cff);
+    -webkit-mask:
+       linear-gradient(#fff 0 0) content-box,
+       linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;     /* «вирізаємо» центр */
+            mask-composite:exclude;
+    pointer-events:none;
+}
+
+/* переносимо стандартні елементи керування вниз/вправо */
+.leaflet-right .leaflet-control{
+    margin-right:14px !important;
+}
+.leaflet-bottom .leaflet-control{
+    margin-bottom:14px !important;
+}
+
+/* фіолетові кнопки + ховер */
+.leaflet-control-zoom a{
+    background:#7a2bf9 !important;
+    color:#fff !important;
+    border:none !important;
+    box-shadow:0 2px 6px rgba(0,0,0,.18);
+    transition:background .25s;
+}
+.leaflet-control-zoom a:hover{
+    background:#4b1bb1 !important;
+}
+
+/* білий scale-bar */
+.leaflet-control-scale-line{
+    background:#fff !important;
+    border:1px solid #ddd !important;
+    color:#333 !important;
+}
+
+/* кастомний маркер (жовто-фіолетовий кружечок) */
+.custom-marker{
+    width:18px;height:18px;
+    border:4px solid #ffb703;
+    border-radius:50%;
+    background:#7a2bf9;
+    box-shadow:0 0 0 2px #fff,
+               0 0 8px rgba(0,0,0,.25);
+}
+/* ==== Ховаємо елементи Leaflet, коли відкрита модалка ==== */
+body.modal-open .leaflet-control-zoom,
+body.modal-open .leaflet-control-attribution{
+  display: none !important;
+}
+/* --- КАТАЛОГ ПОДІЙ --- */
+.simple-hero{
+  background:#f5f5f5;
+  padding:60px 20px 40px;
+  text-align:center;
+}
+.simple-hero h1{margin:0 0 8px;font-size:36px;color:#28184d}
+.simple-hero p{margin:0;font-size:18px;color:#555}
+
+.event-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:25px;
+  margin-top:30px;
+}
+
+.catalog-card{                       /* картка у каталозі */
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);
+  overflow:hidden;
+  transition:.25s;
+  display:flex;
+  flex-direction:column;
+}
+.catalog-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
+}
+.catalog-card img{
+  width:100%;height:160px;object-fit:cover;
+}
+.catalog-card .inner{padding:14px 16px;flex:1}
+.catalog-card h3{font-size:18px;margin:0 0 6px;color:#28184d}
+.catalog-card p{font-size:14px;margin:0 0 10px;color:#555}
+.catalog-card .meta{font-size:13px;color:#888}
+.catalog-card .meta span{margin-right:10px}
+
+.footer-bar{
+  background:#640fbd;color:#fff;text-align:center;
+  padding:28px 14px;font-size:14px;margin-top:60px;
+}
+.footer-bar a{color:#fff;text-decoration:underline}
+
+/* --- Фільтр у каталозі --- */
+.catalog-filters{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  padding:25px 0 5px;
+}
+.catalog-filters select{
+  padding:8px 14px;
+  font-size:15px;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+/* ░░░ FILTER BAR ░░░ */
+.filter-bar{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-bottom:32px;
+}
+
+.filter-bar select,
+.filter-bar input[type="date"]{
+  padding:10px 16px;
+  height:42px;
+  border:1px solid #c9c9d6;
+  border-radius:6px;
+  font:16px/1.2 "Inter", sans-serif;
+  background:#fff;
+  transition:border-color .2s;
+}
+
+.filter-bar select:focus,
+.filter-bar input[type="date"]:focus{
+  border-color:#8b5cf6;
+  outline:none;
+}
+
+/* адаптація */
+@media(max-width:600px){
+  .filter-bar{flex-direction:column;gap:12px;}
+}
+/* ░░░ CUSTOM MARKERS ░░░ */
+.marker {
+  width:22px;height:22px;
+  border-radius:4px;
+  border:2px solid #fff;
+  box-shadow:0 0 4px rgba(0,0,0,.25);
+}
+.marker.music     {background:#ff5959;}
+.marker.cinema    {background:#ffad05;}
+.marker.art       {background:#4e7bff;}
+.marker.sport     {background:#28c76f;}
+.marker.study     {background:#a754ff;}
+/* ░░░ Порожній список ░░░ */
+.empty-state{
+  padding:40px 0;text-align:center;color:#666;font-size:20px;
+}
+/* ░░░ Пастельний фіолетовий геометричний фон (14 em) ░░░ */
+html,
+body{
+  background-color:#ffffff;  /* чиста база */
+
+  background-image:
+    /* правий вертикальний бордюр (світло-ліловий) */
+    linear-gradient(90deg,
+      transparent 93%,
+      rgba(207,194,255,.22) 93%,
+      rgba(207,194,255,.22) 100%
+    ),
+
+    /* тонкі вертикальні смужки */
+    linear-gradient(90deg,
+      rgba(214,208,255,.14) 5%,
+      transparent 5%
+    ),
+
+    /* тонкі горизонтальні смужки */
+    linear-gradient(
+      rgba(214,208,255,.14) 5%,
+      transparent 5%
+    ),
+
+    /* нижня рамка (primary-фіолетовий, дуже прозорий) */
+    linear-gradient(
+      transparent 90%,
+      rgba( 86, 40,227,.08) 90%,
+      rgba( 86, 40,227,.08) 100%
+    ),
+
+    /* «шашечки» 35–70 % */
+    linear-gradient(
+      transparent 35%,
+      rgba(243,240,255,.14) 35%,
+      rgba(243,240,255,.14) 45%,
+      transparent 45%,
+      transparent 55%,
+      rgba(214,208,255,.14) 55%,
+      rgba(214,208,255,.14) 70%,
+      transparent 70%
+    ),
+    linear-gradient(90deg,
+      transparent 35%,
+      rgba(243,240,255,.14) 35%,
+      rgba(243,240,255,.14) 45%,
+      transparent 45%,
+      transparent 55%,
+      rgba(214,208,255,.14) 55%,
+      rgba(214,208,255,.14) 70%,
+      transparent 70%
+    ),
+
+    /* hair-line 55–60 % */
+    linear-gradient(
+      transparent 55%,
+      rgba(243,240,255,.10) 55%,
+      rgba(243,240,255,.10) 60%,
+      transparent 60%
+    ),
+    linear-gradient(90deg,
+      transparent 55%,
+      rgba(243,240,255,.10) 55%,
+      rgba(243,240,255,.10) 60%,
+      transparent 60%
+    ),
+
+    /* хрестоподібна рамка 20–80 % */
+    linear-gradient(
+      transparent 20%,
+      rgba(207,194,255,.22) 20%,
+      rgba(207,194,255,.22) 80%,
+      transparent 80%
+    ),
+    linear-gradient(90deg,
+      transparent 20%,
+      rgba( 86, 40,227,.08) 20%,
+      rgba( 86, 40,227,.08) 80%,
+      transparent 80%
+    ),
+
+    /* дрібні акценти 10–35 % */
+    linear-gradient(
+      transparent 10%,
+      rgba(214,208,255,.14) 10%,
+      rgba(214,208,255,.14) 35%,
+      transparent 35%
+    ),
+    linear-gradient(90deg,
+      transparent 10%,
+      rgba(214,208,255,.14) 10%,
+      rgba(214,208,255,.14) 35%,
+      transparent 35%
+    );
+
+  background-size:14em 14em;   /* густина / масштаб */
+  background-attachment:fixed; /* не рухається при скролі */
+}
+/* ░░░ Статистика ░░░ */
+.stats{
+  display:flex;gap:48px;justify-content:center;
+  margin:80px 0 64px;
+  flex-wrap:wrap;
+  text-align:center;
+}
+.stat__num{
+  font:600 56px/1 "Inter", sans-serif;
+  color:#5628E3;
+  display:block;
+}
+.stat p{margin:8px 0 0;color:#555;font-size:18px;}
+@media(max-width:600px){
+  .stat__num{font-size:40px;}
+}
+a:focus, button:focus{
+  outline:2px solid #A18CFF;
+  outline-offset:3px;
+}
+html{ scroll-behavior:smooth; }      /* плавний скролл, навіть якщо JS вимкнено */
+a:focus,
+button:focus{                       /* видима рамка при Tab-навігації */
+  outline:2px solid #A18CFF;
+  outline-offset:3px;
+}
+/* ░░░  Форма «Додати подію»  ░░░ */
+.event-form{
+  /* дві-три колонки на десктопі, одна на мобайлі */
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px 32px;
+  max-width:960px;
+  margin:40px auto;
+  padding:32px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.event-form label{
+  font-size:15px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.event-form input,
+.event-form textarea,
+.event-form select{
+  width:100%;
+  padding:10px 14px;
+  border:1px solid #d7d7e8;
+  border-radius:8px;
+  font:400 15px/1.4 "Inter",sans-serif;
+  transition:border-color .2s,box-shadow .2s;
+}
+
+.event-form textarea{resize:vertical;}
+
+.event-form input:focus,
+.event-form textarea:focus,
+.event-form select:focus{
+  border-color:#5628E3;
+  box-shadow:0 0 0 2px rgba(86,40,227,.15);
+  outline:none;
+}
+
+.event-form button[type="submit"]{
+  grid-column:1/-1;                /* розтягуємо на всю ширину сітки */
+  justify-self:start;
+  padding:12px 32px;
+  background:#5628E3;
+  color:#fff;
+  border:none;
+  border-radius:30px;
+  font:600 16px/1 "Inter",sans-serif;
+  cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+.event-form button[type="submit"]:hover{
+  background:#4a22cd;
+  transform:translateY(-2px);
+}
+
+.form-msg{
+  grid-column:1/-1;
+  font-size:15px;
+  margin:8px 0 0;
+  color:#5628E3;
+}
+
+/* ── mobile tweaks ── */
+@media(max-width:600px){
+  .event-form{
+    padding:24px 20px;
+    gap:20px;
+  }
+}
+/* ░░░  «Додати подію» — deluxe style  ░░░ */
+
+.event-form{
+  /* card */
+  max-width:960px;
+  margin:48px auto;
+  padding:48px 56px;
+  background:#fff;
+  border-radius:24px;
+  box-shadow:0 12px 40px rgba(86,40,227,.08);
+  /* responsive grid */
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px 40px;
+}
+
+/* ── labels ── */
+.event-form label{
+  font:600 15px/1 "Inter",sans-serif;
+  color:#5628E3;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* ── inputs / textarea / select ── */
+.event-form input,
+.event-form textarea,
+.event-form select{
+  width:100%;
+  padding:14px 18px;
+  border:1px solid #d9d7ef;
+  border-radius:12px;
+  font:500 15px/1.35 "Inter",sans-serif;
+  transition:border-color .25s,box-shadow .25s;
+}
+
+.event-form textarea{resize:vertical;min-height:110px;}
+
+.event-form input:focus,
+.event-form textarea:focus,
+.event-form select:focus{
+  border-color:#5628E3;
+  box-shadow:0 0 0 3px rgba(86,40,227,.15);
+  outline:none;
+}
+
+/* ── placeholder стиль ── */
+.event-form ::placeholder{color:#b8b8d1;font-weight:400;}
+
+/* ── кнопка ── */
+.event-form button[type="submit"]{
+  grid-column:1/-1;
+  justify-self:start;
+  align-self:center;
+
+  padding:14px 46px;
+  background:#5628E3;
+  color:#fff;
+  font:600 17px/1 "Inter",sans-serif;
+  border:none;
+  border-radius:40px;
+  cursor:pointer;
+  transition:background .25s,transform .25s,box-shadow .25s;
+}
+
+.event-form button[type="submit"]:hover{
+  background:#4a22cd;
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(86,40,227,.25);
+}
+
+/* ── feedback message ── */
+.form-msg{
+  grid-column:1/-1;
+  margin-top:-10px;
+  font:500 15px/1.3 "Inter",sans-serif;
+  color:#5628E3;
+}
+
+/* ── mobile tweaks ── */
+@media(max-width:640px){
+  .event-form{
+    padding:32px 24px;
+    gap:24px;
+  }
+}

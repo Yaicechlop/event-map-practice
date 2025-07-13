@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лекція з історії міста</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+<h1>Лекція з історії міста</h1>
+<img src="../images/history-lecture.jpg" alt="Лекція" class="event-image">
+<p><strong>Дата:</strong> 2025-07-14</p>
+<p><strong>Категорія:</strong> Навчання</p>
+<p><strong>Опис:</strong> Пізнавальна лекція з історії міста у Молодіжному центрі. Початок о 17:30. Вхід вільний.</p>
+<p><strong>Локація:</strong> Молодіжний центр, Суми</p>
+<p><strong>Контакти:</strong> youth@sumy.ua | +38 (0542) 711-911</p>
+
+<div id="map"></div>
+
+<a href="../index.html" class="back-button">← Повернутися до карти</a>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var map = L.map('map').setView([50.9105, 34.795], 16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+L.marker([50.9105, 34.795]).addTo(map).bindPopup('Лекція з історії міста - Молодіжний центр').openPopup();
+</script>
+</body>
+</html>

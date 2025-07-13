@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Рейтинг подій | PodiySumy</title>
+
+  <!-- базові шрифти / загальні стилі -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ░░░ ТОП-НАВІГАЦІЯ ░░░ -->
+<nav class="main-nav">
+  <div class="nav-left">
+    <button id="burger" class="icon-btn" aria-label="Меню">&#9776;</button>
+
+    <a href="index.html" class="logo"><span class="logo-icon">💜</span> PodiySumy</a>
+
+    <ul class="nav-menu">
+      <li><a href="index.html#map-section">Карта</a></li>
+      <li><a href="events.html">Події</a></li>
+      <li><a href="index.html#about">Про сервіс</a></li>
+      <li><a href="index.html#contacts">Контакти</a></li>
+      <li><a class="active" href="rating.html">Рейтинг</a></li>
+    </ul>
+  </div>
+
+  <div class="nav-right">
+    <form id="searchForm" class="search-box" autocomplete="off">
+      <button type="submit" class="icon-btn" aria-label="Шукати"></button>
+      <input id="searchInput" type="text" placeholder="Пошук події…" aria-label="Пошук">
+    </form>
+
+    <a href="index.html#map-section" class="icon-btn" aria-label="Локація">📍 Суми</a>
+    <a href="#" class="login-link">Увійти</a>
+  </div>
+</nav>
+
+<!-- ░░░ HERO (градієнт) ░░░ -->
+<header class="hero hero--dark">
+  <div class="container hero-box">
+    <h1>Рейтинг подій</h1>
+    <p>Дізнайся, які події користуються найбільшою популярністю</p>
+  </div>
+</header>
+<img src="images/wave.svg" class="wave-bottom" alt="" aria-hidden="true" loading="lazy">
+
+
+<!-- ░░░ Секція з топ-5 ░░░ -->
+<section class="section section--alt">
+  <div class="container top-grid">
+
+    <!-- 1 -->
+    <a href="events/jazz-on-lake.html" class="top-card">
+      <span class="top-badge">1</span>
+      <img src="images/top-jazz-lake.jpg" alt="Jazz on the Lake 2024">
+      <span class="top-caption">Фестиваль “Jazz on the Lake” 2024</span>
+    </a>
+
+    <!-- 2 -->
+    <a href="events/color-run.html" class="top-card">
+      <span class="top-badge">2</span>
+      <img src="images/top-color-run.jpg" alt="Sumy Color Run – благодійний забіг">
+      <span class="top-caption">“Sumy Color Run” — благодійний забіг</span>
+    </a>
+
+    <!-- 3 -->
+    <a href="events/night-museum.html" class="top-card">
+      <span class="top-badge">3</span>
+      <img src="images/top-night-museum.jpg" alt="Ніч музеїв: інтерактивний квест">
+      <span class="top-caption">Ніч музеїв: інтерактивний квест</span>
+    </a>
+
+    <!-- 4 -->
+    <a href="events/bbq-championship.html" class="top-card">
+      <span class="top-badge">4</span>
+      <img src="images/top-bbq-champ.jpg" alt="Відкритий чемпіонат з барбекю">
+      <span class="top-caption">Відкритий чемпіонат з барбекю</span>
+    </a>
+
+    <!-- 5 -->
+    <a href="events/tech-meetup.html" class="top-card">
+      <span class="top-badge">5</span>
+      <img src="images/top-tech-meetup.jpg" alt="Summer Tech Meetup 2024">
+      <span class="top-caption">Summer Tech Meetup 2024</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- хвиля -->
+<img src="images/wave.svg" class="wave-bottom" alt="">
+
+<!-- ░░░ FOOTER ░░░ -->
+<footer class="center-text footer-dark">
+  <p>
+    © 2025 PodiySumy • 
+    <a href="mailto:info@podiy.sumy.ua">info@podiy.sumy.ua</a> • 
+    <a href="tel:+380501234567">+38 050 123 45 67</a> • 
+    <a href="index.html">← На головну</a>
+  </p>
+</footer>
+
+<!-- ░░░ Burger-script (такий самий, як на головній) ░░░ -->
+<script>
+  const burger  = document.getElementById('burger');
+  const navMenu = document.querySelector('.nav-menu');
+  burger.addEventListener('click', () => navMenu.classList.toggle('show'));
+</script>
+</body>
+</html>
