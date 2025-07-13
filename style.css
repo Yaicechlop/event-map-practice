@@ -1410,3 +1410,90 @@ button:focus{                       /* видима рамка при Tab-нав
     gap:20px;
   }
 }
+/* ░░░  «Додати подію» — deluxe style  ░░░ */
+
+.event-form{
+  /* card */
+  max-width:960px;
+  margin:48px auto;
+  padding:48px 56px;
+  background:#fff;
+  border-radius:24px;
+  box-shadow:0 12px 40px rgba(86,40,227,.08);
+  /* responsive grid */
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px 40px;
+}
+
+/* ── labels ── */
+.event-form label{
+  font:600 15px/1 "Inter",sans-serif;
+  color:#5628E3;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* ── inputs / textarea / select ── */
+.event-form input,
+.event-form textarea,
+.event-form select{
+  width:100%;
+  padding:14px 18px;
+  border:1px solid #d9d7ef;
+  border-radius:12px;
+  font:500 15px/1.35 "Inter",sans-serif;
+  transition:border-color .25s,box-shadow .25s;
+}
+
+.event-form textarea{resize:vertical;min-height:110px;}
+
+.event-form input:focus,
+.event-form textarea:focus,
+.event-form select:focus{
+  border-color:#5628E3;
+  box-shadow:0 0 0 3px rgba(86,40,227,.15);
+  outline:none;
+}
+
+/* ── placeholder стиль ── */
+.event-form ::placeholder{color:#b8b8d1;font-weight:400;}
+
+/* ── кнопка ── */
+.event-form button[type="submit"]{
+  grid-column:1/-1;
+  justify-self:start;
+  align-self:center;
+
+  padding:14px 46px;
+  background:#5628E3;
+  color:#fff;
+  font:600 17px/1 "Inter",sans-serif;
+  border:none;
+  border-radius:40px;
+  cursor:pointer;
+  transition:background .25s,transform .25s,box-shadow .25s;
+}
+
+.event-form button[type="submit"]:hover{
+  background:#4a22cd;
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(86,40,227,.25);
+}
+
+/* ── feedback message ── */
+.form-msg{
+  grid-column:1/-1;
+  margin-top:-10px;
+  font:500 15px/1.3 "Inter",sans-serif;
+  color:#5628E3;
+}
+
+/* ── mobile tweaks ── */
+@media(max-width:640px){
+  .event-form{
+    padding:32px 24px;
+    gap:24px;
+  }
+}
