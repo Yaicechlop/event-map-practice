@@ -1109,3 +1109,304 @@ body.modal-open .leaflet-control-zoom,
 body.modal-open .leaflet-control-attribution{
   display: none !important;
 }
+/* --- КАТАЛОГ ПОДІЙ --- */
+.simple-hero{
+  background:#f5f5f5;
+  padding:60px 20px 40px;
+  text-align:center;
+}
+.simple-hero h1{margin:0 0 8px;font-size:36px;color:#28184d}
+.simple-hero p{margin:0;font-size:18px;color:#555}
+
+.event-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:25px;
+  margin-top:30px;
+}
+
+.catalog-card{                       /* картка у каталозі */
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);
+  overflow:hidden;
+  transition:.25s;
+  display:flex;
+  flex-direction:column;
+}
+.catalog-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
+}
+.catalog-card img{
+  width:100%;height:160px;object-fit:cover;
+}
+.catalog-card .inner{padding:14px 16px;flex:1}
+.catalog-card h3{font-size:18px;margin:0 0 6px;color:#28184d}
+.catalog-card p{font-size:14px;margin:0 0 10px;color:#555}
+.catalog-card .meta{font-size:13px;color:#888}
+.catalog-card .meta span{margin-right:10px}
+
+.footer-bar{
+  background:#640fbd;color:#fff;text-align:center;
+  padding:28px 14px;font-size:14px;margin-top:60px;
+}
+.footer-bar a{color:#fff;text-decoration:underline}
+
+/* --- Фільтр у каталозі --- */
+.catalog-filters{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  padding:25px 0 5px;
+}
+.catalog-filters select{
+  padding:8px 14px;
+  font-size:15px;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+/* ░░░ FILTER BAR ░░░ */
+.filter-bar{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-bottom:32px;
+}
+
+.filter-bar select,
+.filter-bar input[type="date"]{
+  padding:10px 16px;
+  height:42px;
+  border:1px solid #c9c9d6;
+  border-radius:6px;
+  font:16px/1.2 "Inter", sans-serif;
+  background:#fff;
+  transition:border-color .2s;
+}
+
+.filter-bar select:focus,
+.filter-bar input[type="date"]:focus{
+  border-color:#8b5cf6;
+  outline:none;
+}
+
+/* адаптація */
+@media(max-width:600px){
+  .filter-bar{flex-direction:column;gap:12px;}
+}
+/* ░░░ CUSTOM MARKERS ░░░ */
+.marker {
+  width:22px;height:22px;
+  border-radius:4px;
+  border:2px solid #fff;
+  box-shadow:0 0 4px rgba(0,0,0,.25);
+}
+.marker.music     {background:#ff5959;}
+.marker.cinema    {background:#ffad05;}
+.marker.art       {background:#4e7bff;}
+.marker.sport     {background:#28c76f;}
+.marker.study     {background:#a754ff;}
+/* ░░░ Порожній список ░░░ */
+.empty-state{
+  padding:40px 0;text-align:center;color:#666;font-size:20px;
+}
+/* ░░░ Пастельний фіолетовий геометричний фон (14 em) ░░░ */
+html,
+body{
+  background-color:#ffffff;  /* чиста база */
+
+  background-image:
+    /* правий вертикальний бордюр (світло-ліловий) */
+    linear-gradient(90deg,
+      transparent 93%,
+      rgba(207,194,255,.22) 93%,
+      rgba(207,194,255,.22) 100%
+    ),
+
+    /* тонкі вертикальні смужки */
+    linear-gradient(90deg,
+      rgba(214,208,255,.14) 5%,
+      transparent 5%
+    ),
+
+    /* тонкі горизонтальні смужки */
+    linear-gradient(
+      rgba(214,208,255,.14) 5%,
+      transparent 5%
+    ),
+
+    /* нижня рамка (primary-фіолетовий, дуже прозорий) */
+    linear-gradient(
+      transparent 90%,
+      rgba( 86, 40,227,.08) 90%,
+      rgba( 86, 40,227,.08) 100%
+    ),
+
+    /* «шашечки» 35–70 % */
+    linear-gradient(
+      transparent 35%,
+      rgba(243,240,255,.14) 35%,
+      rgba(243,240,255,.14) 45%,
+      transparent 45%,
+      transparent 55%,
+      rgba(214,208,255,.14) 55%,
+      rgba(214,208,255,.14) 70%,
+      transparent 70%
+    ),
+    linear-gradient(90deg,
+      transparent 35%,
+      rgba(243,240,255,.14) 35%,
+      rgba(243,240,255,.14) 45%,
+      transparent 45%,
+      transparent 55%,
+      rgba(214,208,255,.14) 55%,
+      rgba(214,208,255,.14) 70%,
+      transparent 70%
+    ),
+
+    /* hair-line 55–60 % */
+    linear-gradient(
+      transparent 55%,
+      rgba(243,240,255,.10) 55%,
+      rgba(243,240,255,.10) 60%,
+      transparent 60%
+    ),
+    linear-gradient(90deg,
+      transparent 55%,
+      rgba(243,240,255,.10) 55%,
+      rgba(243,240,255,.10) 60%,
+      transparent 60%
+    ),
+
+    /* хрестоподібна рамка 20–80 % */
+    linear-gradient(
+      transparent 20%,
+      rgba(207,194,255,.22) 20%,
+      rgba(207,194,255,.22) 80%,
+      transparent 80%
+    ),
+    linear-gradient(90deg,
+      transparent 20%,
+      rgba( 86, 40,227,.08) 20%,
+      rgba( 86, 40,227,.08) 80%,
+      transparent 80%
+    ),
+
+    /* дрібні акценти 10–35 % */
+    linear-gradient(
+      transparent 10%,
+      rgba(214,208,255,.14) 10%,
+      rgba(214,208,255,.14) 35%,
+      transparent 35%
+    ),
+    linear-gradient(90deg,
+      transparent 10%,
+      rgba(214,208,255,.14) 10%,
+      rgba(214,208,255,.14) 35%,
+      transparent 35%
+    );
+
+  background-size:14em 14em;   /* густина / масштаб */
+  background-attachment:fixed; /* не рухається при скролі */
+}
+/* ░░░ Статистика ░░░ */
+.stats{
+  display:flex;gap:48px;justify-content:center;
+  margin:80px 0 64px;
+  flex-wrap:wrap;
+  text-align:center;
+}
+.stat__num{
+  font:600 56px/1 "Inter", sans-serif;
+  color:#5628E3;
+  display:block;
+}
+.stat p{margin:8px 0 0;color:#555;font-size:18px;}
+@media(max-width:600px){
+  .stat__num{font-size:40px;}
+}
+a:focus, button:focus{
+  outline:2px solid #A18CFF;
+  outline-offset:3px;
+}
+html{ scroll-behavior:smooth; }      /* плавний скролл, навіть якщо JS вимкнено */
+a:focus,
+button:focus{                       /* видима рамка при Tab-навігації */
+  outline:2px solid #A18CFF;
+  outline-offset:3px;
+}
+/* ░░░  Форма «Додати подію»  ░░░ */
+.event-form{
+  /* дві-три колонки на десктопі, одна на мобайлі */
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px 32px;
+  max-width:960px;
+  margin:40px auto;
+  padding:32px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.event-form label{
+  font-size:15px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.event-form input,
+.event-form textarea,
+.event-form select{
+  width:100%;
+  padding:10px 14px;
+  border:1px solid #d7d7e8;
+  border-radius:8px;
+  font:400 15px/1.4 "Inter",sans-serif;
+  transition:border-color .2s,box-shadow .2s;
+}
+
+.event-form textarea{resize:vertical;}
+
+.event-form input:focus,
+.event-form textarea:focus,
+.event-form select:focus{
+  border-color:#5628E3;
+  box-shadow:0 0 0 2px rgba(86,40,227,.15);
+  outline:none;
+}
+
+.event-form button[type="submit"]{
+  grid-column:1/-1;                /* розтягуємо на всю ширину сітки */
+  justify-self:start;
+  padding:12px 32px;
+  background:#5628E3;
+  color:#fff;
+  border:none;
+  border-radius:30px;
+  font:600 16px/1 "Inter",sans-serif;
+  cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+.event-form button[type="submit"]:hover{
+  background:#4a22cd;
+  transform:translateY(-2px);
+}
+
+.form-msg{
+  grid-column:1/-1;
+  font-size:15px;
+  margin:8px 0 0;
+  color:#5628E3;
+}
+
+/* ── mobile tweaks ── */
+@media(max-width:600px){
+  .event-form{
+    padding:24px 20px;
+    gap:20px;
+  }
+}
