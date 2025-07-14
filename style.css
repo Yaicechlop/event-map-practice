@@ -10,6 +10,20 @@ body {
     align-items: center;
 }
 
+:root{
+  --gap: 16px;
+  --maxw: 1200px;
+}
+
+body{ margin:0; font-family:system-ui,Arial,sans-serif; }
+
+.container{
+  width: min(100% - 2*var(--gap), var(--maxw));
+  margin-inline:auto;
+  padding-inline:var(--gap);
+}
+
+
 h1, h2, h3 {
     text-align: center;
     margin: 15px 0;
@@ -1495,5 +1509,274 @@ button:focus{                       /* видима рамка при Tab-нав
   .event-form{
     padding:32px 24px;
     gap:24px;
+  }
+}
+.pick-btn{
+  margin-top:6px;
+  padding:8px 14px;
+  font:500 14px/1 'Inter',sans-serif;
+  background:#f2f0ff;
+  color:#5628e3;
+  border:1px solid #d4d1ff;
+  border-radius:10px;
+  cursor:pointer;
+  transition:.2s;
+}
+.pick-btn:hover{background:#e6e2ff}
+.coord-picker{display:flex;flex-direction:column}
+/* -------- базова «оболонка» маркера -------- */
+.marker {
+  --bg: #666;           /* фон за замовчуванням */
+  --sh: 0;              /* радіус форми (0 = квадрат) */
+  --sz: 24px;           /* розмір */
+  position: relative;
+  width:  var(--sz);
+  height: var(--sz);
+  background: var(--bg);
+  border-radius: var(--sh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  box-shadow: 0 0 0 2px #fff;      /* тонка біл-а обводка */
+  transition: transform .2s;
+}
+.marker:hover { transform: scale(1.15); }
+
+/* -------- різні форми — можна комбінувати -------- */
+.marker.circle     { --sh:50%; }
+.marker.rounded    { --sh:6px; }
+.marker.rhombus    { transform: rotate(45deg); }
+.marker.rhombus i  { transform: rotate(-45deg); }   /* випрямляємо іконку */
+.marker.hexagon    { clip-path: polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%); }
+
+/* -------- кольори за типами -------- */
+.marker.music   { --bg:#e74c3c; }   /* червоний */
+.marker.cinema  { --bg:#2980b9; }   /* синій  */
+.marker.art     { --bg:#f1c40f; }   /* жовтий */
+.marker.sport   { --bg:#2ecc71; }   /* зелений */
+.marker.study   { --bg:#9b59b6; }   /* фіолетовий */
+
+/* -------- іконки FA всередині -------- */
+.marker i { pointer-events:none; }  /* щоб клік ішов на весь div */
+.marker.rhombus { transform-origin:center; }
+/* mobile-first: одна колонка */
+#event-list,
+#events-catalog{
+  display:grid; gap:var(--gap);
+  grid-template-columns:1fr;
+}
+
+/* ≥600px — дві колонки */
+@media (min-width:600px){
+  #event-list, #events-catalog{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* ≥900px — три */
+@media (min-width:900px){
+  #event-list{          grid-template-columns:repeat(3,1fr); }
+  #events-catalog{      grid-template-columns:repeat(4,1fr); }
+}
+.event-card,
+.catalog-card{
+  display:flex; flex-direction:column;
+  background:#fff; border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  overflow:hidden;
+  transition:transform .2s;
+}
+.event-card:hover,
+.catalog-card:hover{ transform:translateY(-4px); }
+
+.event-card img,
+.catalog-card img{ width:100%; height:auto; display:block; }
+/* ставимо у дві колонки лише коли є місце */
+#addEventForm{
+  display:grid; gap:var(--gap);
+  grid-template-columns:1fr;
+}
+@media (min-width:600px){
+  #addEventForm{ grid-template-columns:1fr 1fr; }
+  #addEventForm .full{ grid-column:1/-1; }   /* елементи на всю ширину */
+}
+.map-section{
+  display:flex; flex-direction:column; gap:var(--gap);
+}
+.map-section .controls{
+  display:flex; flex-wrap:wrap; gap:var(--gap);
+}
+.map-section #map{ width:100%; height:55vh; min-height:320px; border-radius:8px; }
+.modal-content{ width:min(100% - 2*var(--gap), 500px); }
+/* ░░░  КАРТКА ЗАКЛАДУ  ░░░ */
+.venue-card{
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  padding:28px 32px;
+  margin-block:42px;           /* відступ від попередніх/наступних */
+  max-width:900px;
+  width:90%;
+  margin-inline:auto;
+  text-align:center;
+}
+.venue-card img{
+  width:100%;
+  max-height:340px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:22px;
+}
+.venue-card h2{margin:0 0 6px;font-size:26px;color:#2d2143}
+.venue-card .meta{margin:0 0 14px;color:#7d6ea7;font-size:15px}
+.venue-card p{margin:0 0 10px;font-size:15px}
+
+/* ░░░  СІТКА ПОДІЙ У ЗАКЛАДІ  ░░░ */
+.venue-events{
+  margin-top:26px;
+  display:grid;
+  gap:24px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+}
+
+/* ░░░  Відступ між картками закладів у каталозі  ░░░ */
+.venue-block:not(:last-child){margin-bottom:64px}
+/* ░░░ Картка ЗАКЛАДУ ░░░ */
+.venue-card{
+  background:#fff;
+  border-radius:22px;
+  padding:36px 40px 44px;
+  box-shadow:0 12px 36px rgba(0,0,0,.08);
+  max-width:960px;
+  width:92%;
+  margin:56px auto 42px;
+  text-align:center;
+}
+/* світліша «маска» для фото закладу */
+.venue-card img{
+  width:100%;
+  height:420px;                   /* фіксована висота → стабільний макет */
+  object-fit:cover;
+  border-radius:14px;
+  filter:brightness(1.08);        /* трохи “висвітлюємо” */
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+  margin-bottom:28px;
+}
+.venue-card h2   {margin:0 0 8px;font-size:28px;color:#28184d}
+.venue-card .meta{margin:0 0 14px;color:#7d6ea7;font-size:16px}
+.venue-card p    {margin:0 0 10px;font-size:15px}
+
+/* ░░░ Заголовок «Події у цьому закладі» ░░░ */
+.venue-block > h3{
+  margin:0 0 26px;
+  font-size:22px;
+  color:#2d2143;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+}
+
+/* ░░░ Сітка карток подій ░░░ */
+.venue-events{
+  display:grid;
+  gap:28px;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  margin-inline:auto;
+  max-width:1100px;
+}
+
+/* ░░░ Єдині пропорції для фото ПОДІЙ ░░░ */
+.event-card img,
+.catalog-card img{
+  width:100%;
+  height:180px;          /* однакова висота */
+  object-fit:cover;
+}
+
+/* ░░░ Трохи вирівняємо підписи карток ░░░ */
+.event-card h3,
+.catalog-card h3{font-size:18px;color:#28184d;margin:12px 0 4px}
+.event-card p,
+.catalog-card p {font-size:14px;color:#555}
+/* менший padding */
+.venue-card{padding:24px 28px 32px;}
+/* тінь карток подій усередині списку локації */
+.venue-events .event-card{
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
+}
+.venue-events .event-card:hover{
+  transform:translateY(-4px);
+}
+/* додаємо легкий радіус карткам подій, щоб перегукувались із карткою закладу */
+.venue-events .event-card img{border-radius:8px 8px 0 0;}
+/* ░░░ ACCORDION ░░░ */
+.accordion-head{
+  cursor:pointer;
+  transition:box-shadow .25s, transform .25s;
+}
+.accordion-head:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(0,0,0,.10);
+}
+.accordion-head.open{
+  box-shadow:0 8px 24px rgba(0,0,0,.10);
+}
+/* мʼяке відкриття/закриття */
+.venue-body{
+  overflow:hidden;
+  padding-top:18px;
+  transition:max-height .35s ease;
+}
+/* коли тіло відкрите → робимо “грати” подій */
+.venue-body .venue-events{
+  display:grid;
+  gap:28px;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+}
+
+/* однакова висота зображень подій */
+.venue-events .event-card img,
+.catalog-card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+/* Accordion header (картка закладу) */
+.accordion-head{cursor:pointer;transition:box-shadow .25s,transform .25s}
+.accordion-head:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.accordion-head.open{box-shadow:0 8px 24px rgba(0,0,0,.12)}
+
+/* Тіло акордеона */
+.venue-body{padding-top:18px}
+
+/* Сітка подій усередині відкритого акордеона */
+.venue-body .venue-events{
+  display:grid;gap:28px;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+}
+
+/* Єдина висота зображень подій */
+.venue-events .event-card img,
+.venue-events .catalog-card img{width:100%;height:180px;object-fit:cover}
+/* ░░░  MOBILE BURGER-MENU (≤900 px)  ░░░ */
+@media (max-width:900px){
+  /* показуємо меню, коли .main-nav має .menu-open */
+  .main-nav.menu-open .nav-menu{
+    display:flex;                 /* вмикаємо! */
+    position:absolute;
+    top:60px; left:0;
+    width:100%;
+    flex-direction:column;
+    gap:18px;
+    padding:20px 24px;
+    background:var(--nav-bg);     /* той же фіолет */
+    box-shadow:0 4px 18px rgba(0,0,0,.15);
+    z-index:999;
+  }
+  /* робимо пункти по центру та збільшуємо клік-зону */
+  .main-nav.menu-open .nav-menu a{
+    padding:8px 0;
+    font-size:18px;
   }
 }

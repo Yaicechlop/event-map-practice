@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Заклади | PodiySumy</title>
+
+  <!-- Font Awesome (іконки у навігації / маркерах) -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Google-шрифт (як на головній) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap"
+        rel="stylesheet" />
+
+  <!-- Головні стилі сайту -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ░░░ TOP-BAR ░░░ -->
+<nav class="main-nav">
+  <div class="nav-left">
+    <a class="logo" href="index.html">
+      <i class="fa-solid fa-heart logo-icon"></i> PodiySumy
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Карта</a></li>
+      <li><a href="events.html">Події</a></li>
+      <li><a href="venue.html" class="active">Заклади</a></li>
+      <li><a href="rating.html">Рейтинг</a></li>
+      <li><a href="#contacts">Контакти</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <button id="burger" class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- ░░░ HERO ░░░ -->
+<header class="hero">
+  <div class="hero-box">
+    <h1 id="heroTitle">Усі заклади міста Суми</h1>
+    <p  id="heroSub">Обери локацію — і переглянь події, що там відбуваються</p>
+  </div>
+</header>
+
+<!-- ░░░ ВМІСТ ░░░ -->
+<section class="section">
+  <div class="container" id="venuesWrap"><!-- JS створить вміст --></div>
+</section>
+
+<!-- ░░░ FOOTER ░░░ -->
+<footer class="footer-bar" id="contacts">
+  © 2025 PodiySumy · Всі права захищені
+</footer>
+
+<!-- ░░░ СКРИПТИ ░░░ -->
+<script src="app.js"        defer></script>
+<script src="venue-page.js" defer></script>
+</body>
+</html>
