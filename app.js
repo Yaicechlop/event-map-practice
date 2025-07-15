@@ -128,7 +128,15 @@ function createCard(ev, isCatalog = false) {
   if (isCatalog) el.href = ev.link;
 
   el.innerHTML = `
-    <img src="images/${ev.image}" alt="${ev.name}" loading="lazy">
+    <img
+  src="images/${ev.image}"
+  alt="${ev.name}"
+  loading="lazy"
+  width="400" height="250"
+  sizes="(max-width:600px) 100vw,
+         (max-width:1400px) 50vw,
+         25vw">
+
     <div class="${isCatalog ? 'inner' : 'event-details'}">
       <h3>${ev.name}</h3>
       ${isCatalog ? '' : `<p>${ev.description}</p>`}

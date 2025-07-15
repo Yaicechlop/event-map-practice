@@ -1780,3 +1780,29 @@ button:focus{                       /* видима рамка при Tab-нав
     font-size:18px;
   }
 }
+/* … залишаємо все, що вже є … */
+
+/* ===== 4-та та 5-та колонки на Ultra-Wide ===== */
+@media (min-width:1400px){
+  #event-list      {grid-template-columns:repeat(4,1fr);}
+  #events-catalog  {grid-template-columns:repeat(5,1fr);}
+  .container       {max-width:1400px;}   /* ширший контейнер */
+}
+@media (prefers-reduced-motion: reduce){
+  *{
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:focus-visible{
+  outline: 2px solid #A18CFF;
+  outline-offset: 3px;
+}
+@media (hover: hover){
+  .event-card:hover,
+  .catalog-card:hover{transform:translateY(-4px);}
+  .swiper-slide:hover{transform:translateY(-6px);}
+  /* …інші :hover-ефекти при потребі… */
+}
