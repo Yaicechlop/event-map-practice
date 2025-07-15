@@ -1,9 +1,9 @@
 /* =========================================================
    venue-page.js
    ---------------------------------------------------------
-   •  venues.html         → каталог-акордеон (тільки заголовки,
+   •  venue.html         → каталог-акордеон (лише заголовки,
                             події підвантажуються по кліку)
-   •  venues.html?id=3    → один конкретний заклад + події
+   •  venue.html?id=3    → один конкретний заклад + події
 ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   if (!window.locations || !window.events) return;
@@ -18,13 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const venueID  = hasID ? Number(params.get('id')) : null;
 
   /* -------------------------------------------------- *
-   * 1. ОДИН КОНКРЕТНИЙ ЗАКЛАД  (venues.html?id=…)      *
+   * 1. ОДИН КОНКРЕТНИЙ ЗАКЛАД  (venue.html?id=…)       *
    * -------------------------------------------------- */
   if (hasID) {
     const loc = locations.find(l => l.id === venueID);
-    if (!loc) { wrap.innerHTML = '<p class="empty-state">Заклад не знайдено 😕</p>'; return; }
+    if (!loc) {
+      wrap.innerHTML = '<p class="empty-state">Заклад не знайдено 😕</p>';
+      return;
+    }
 
-    /* змінюємо hero */
+    /* hero */
     hTitle.textContent = loc.name;
     hSub.textContent   = loc.address;
 
@@ -44,30 +47,34 @@ document.addEventListener('DOMContentLoaded', () => {
       <h3 class="center-text" style="margin-top:12px">Події у цьому закладі</h3>
       <div class="venue-events">
         ${evList.length
-            ? evList.map(ev => createCard(ev,true).outerHTML).join('')
-            : '<p class="empty-state">Поки що подій немає 🙌</p>'}
+          ? evList.map(ev => createCard(ev,true).outerHTML).join('')
+          : '<p class="empty-state">Поки що подій немає 🙌</p>'}
       </div>`;
     wrap.appendChild(block);
 
-    /* перетворюємо рядки на createCard() */
+    /* перетворюємо рядки ↔ елементи */
     if (evList.length) {
       const grid = block.querySelector('.venue-events');
-      evList.forEach((ev,i)=> grid.children[i].replaceWith(createCard(ev,true)));
+      evList.forEach((ev,i) => grid.children[i]
+        .replaceWith(createCard(ev, true)));
     }
 
-    /* кнопка «назад» */
+    /* кнопка «назад до каталогу» (посилання!) */
     const back = document.createElement('p');
-    back.innerHTML = '<a class="back-button" href="venues.html">← До всіх закладів</a>';
+    back.innerHTML = `
+      <a class="back-button" href="venue.html">
+        ← До всіх закладів
+      </a>`;
     wrap.appendChild(back);
 
     return;                 /* ← завершили режим одного закладу */
   }
 
   /* -------------------------------------------------- *
-   * 2. КАТАЛОГ-АКОРДЕОН (venues.html)                  *
+   * 2. КАТАЛОГ-АКОРДЕОН (venue.html)                   *
    * -------------------------------------------------- */
   locations.forEach((loc) => {
-    /* головна картка-заголовок */
+    /* заголовок-картка */
     const head = document.createElement('div');
     head.className = 'venue-card accordion-head';
     head.innerHTML = `
@@ -79,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* приховане тіло з подіями */
     const body = document.createElement('div');
     body.className = 'venue-body';
-    body.hidden = true;                /* простий toggle */
+    body.hidden = true;                /* toggle */
 
     const container = document.createElement('div');
     container.className = 'venue-block';
@@ -88,16 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* клік: розгортання / згортання */
     head.addEventListener('click', () => {
-      if (!body.dataset.loaded) {      /* рендеримо події одноразово */
+      if (!body.dataset.loaded) {      /* перше відкриття → рендеримо */
         const evList = events.filter(ev => ev.venueId === loc.id);
         body.innerHTML = evList.length
           ? `<div class="venue-events">
                ${evList.map(ev => createCard(ev,true).outerHTML).join('')}
              </div>`
           : '<p class="empty-state">Поки що подій немає 🙌</p>';
+
         if (evList.length) {
           const grid = body.querySelector('.venue-events');
-          evList.forEach((ev,i)=>
+          evList.forEach((ev,i) =>
             grid.children[i].replaceWith(createCard(ev,true)));
         }
         body.dataset.loaded = '1';
