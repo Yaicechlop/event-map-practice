@@ -1,37 +1,80 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Центральний парк культури та відпочинку</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title id="docTitle">Подія • PodiySumy</title>
+
+  <!-- шрифти + іконки + Leaflet -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <!-- основні стилі сайту -->
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<h1>Центральний парк культури та відпочинку</h1>
-<img src="images/park.jpg" alt="Центральний парк" class="event-image" />
-<p><strong>Опис:</strong> Центральний парк є головним місцем для проведення культурних заходів та активного відпочинку у місті Суми. Тут регулярно проводяться кінопокази, концерти, спортивні заходи та фестивалі для жителів міста.</p>
-<p><strong>Адреса:</strong> вул. Паркова, 1, Суми</p>
-<p><strong>Контакти:</strong> park@sumy.ua | +38 (0542) 700-800</p>
+<!-- ░░░ TOP-BAR ░░░ -->
+<nav class="main-nav">
+  <div class="nav-left">
+    <button id="burger" class="icon-btn" aria-label="Відкрити меню">&#9776;</button>
+    <a href="index.html" class="logo"><span class="logo-icon">💜</span> PodiySumy</a>
+    <ul class="nav-menu">
+      <li><a href="index.html#map-section">Карта</a></li>
+      <li><a href="events.html">Події</a></li>
+      <li><a href="venue.html">Заклади</a></li>
+      <li><a href="rating.html">Рейтинг</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <form id="searchForm" class="search-box" autocomplete="off">
+      <button type="submit" class="icon-btn" aria-label="Шукати"></button>
+      <input id="searchInput" type="text" placeholder="Пошук події…" aria-label="Пошук">
+    </form>
 
-<h2>Події у парку</h2>
-<div id="event-list">
-    <div class="event-card">
-        <h3>Кінопоказ просто неба</h3>
-        <p>Відкритий кінопоказ у парку.</p>
-        <a href="events/event2.html" class="back-button">Детальніше</a>
-    </div>
-    <div class="event-card">
-        <h3>Відкрите тренування</h3>
-        <p>Тренування з йоги на свіжому повітрі.</p>
-        <a href="events/event4.html" class="back-button">Детальніше</a>
-    </div>
-    <div class="event-card">
-        <h3>Змагання з бігу</h3>
-        <p>Міські змагання з бігу у парку.</p>
-        <a href="events/event9.html" class="back-button">Детальніше</a>
-    </div>
-</div>
+    <a href="index.html#map-section" class="icon-btn" aria-label="Локація"> Суми</a>
+    <a href="#" class="login-link">Увійти</a>
+  </div>
+</nav>
+</nav>
 
-<a href="index.html" class="back-button">← Повернутися до карти</a>
+<!-- ░░░ ВМІСТ ПОДІЇ ░░░ -->
+<section class="section">
+  <div class="container single-wrap">
+    <h1 id="evTitle" class="center-text"></h1>
+
+    <img id="evImg" class="event-image"
+         src="" alt="" loading="lazy"
+         width="800" height="500"
+         sizes="(max-width:600px) 100vw,
+                (max-width:1400px) 70vw,
+                50vw">
+
+    <p><strong>Дата:</strong>        <span id="evDate"></span></p>
+    <p><strong>Категорія:</strong>   <span id="evType"></span></p>
+    <p><strong>Опис:</strong>        <span id="evDesc"></span></p>
+
+    <p><strong>Локація:</strong>     <span id="locName"></span></p>
+    <p><strong>Контакти:</strong>    <span id="locContacts"></span></p>
+
+    <!-- карта з тією самою «рамкою» що й на index.html -->
+    <div class="map-frame">
+      <div id="mapSingle"></div>
+    </div>
+
+    <div class="venue-nav">
+      <a href="events.html"            class="btn nav-btn">← До всіх подій</a>
+      <a href="index.html#map-section" class="btn nav-btn">← На карту подій</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-bar">© 2025 PodiySumy</footer>
+
+<!-- ░░░ СКРИПТИ ░░░ -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script src="app.js"          defer></script> <!-- markerIcon() + дані -->
+<script src="place-page.js"  defer></script>
 </body>
 </html>

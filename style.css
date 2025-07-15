@@ -1806,3 +1806,46 @@ button:focus{                       /* видима рамка при Tab-нав
   .swiper-slide:hover{transform:translateY(-6px);}
   /* …інші :hover-ефекти при потребі… */
 }
+/* ░░░ НАВІГАЦІЯ ВСЕРЕДИНІ СТОРІНКИ ЗАКЛАДУ ░░░ */
+.venue-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  justify-content:center;
+  margin:40px 0 60px;
+}
+
+.btn.nav-btn{
+  background:#6a0dad;            /* фіолетовий бренд-колір */
+  color:#fff;
+  font:600 15px/1 "Inter",sans-serif;
+  padding:10px 26px;
+  border-radius:30px;
+  text-decoration:none;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  transition:background .25s, transform .25s;
+}
+.btn.nav-btn:hover{
+  background:#4b0b91;
+  transform:translateY(-2px);
+}
+
+/* трохи менші на мобілці */
+@media(max-width:480px){
+  .btn.nav-btn{padding:10px 18px;font-size:14px;}
+}
+.back-button{ display:none !important; }
+/* …після блоку для #map … */
+#mapSingle{                     /* карта на сторінці однієї події */
+  width:100%;
+  height:100%;                  /* ← обов’язково */
+  border:none;                  /* щоб рамку робила тільки .map-frame */
+}
+.event-image{
+  display:block;               /* прибираємо зайві прогалини */
+  width:100%;                  /* заповнює контейнер по ширині */
+  max-width:720px;             /* але не більше 720 px (можна змінити) */
+  margin-inline:auto;          /* центруємо */
+  border-radius:12px;
+  height:auto;  
+  }
