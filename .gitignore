@@ -1,0 +1,6 @@
+node_modules/
+images/
+.env
+echo ".vs/" >> .gitignore.vs/
+node_modules/
+images/

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title id="docTitle">Подія • PodiySumy</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="nav-left">
+            <button id="burger" class="icon-btn" aria-label="Відкрити меню">&#9776;</button>
+            <a href="index.html" class="logo"><span class="logo-icon">💜</span> PodiySumy</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#map-section">Карта</a></li>
+                <li><a href="events.html">Події</a></li>
+                <li><a href="venue.html">Заклади</a></li>
+                <li><a href="rating.html">Рейтинг</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <form id="searchForm" class="search-box" autocomplete="off">
+                <input id="searchInput" type="text" placeholder="Пошук події…" aria-label="Пошук">
+            </form>
+            <a href="index.html#map-section" class="nav-gradient-link">Суми</a>
+            <div id="authButtons">
+                <a href="#" onclick="openAuthModal(event)" class="nav-gradient-link">Увійти</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container single-wrap">
+            <nav class="breadcrumb">
+                <a href="events.html">Події</a> / <span>Деталі заходу</span>
+            </nav>
+
+            <div class="event-header-section">
+                <h1 id="evTitle" class="main-title">Завантаження...</h1>
+                <span id="evType" class="event-badge">---</span>
+            </div>
+
+            <div class="event-grid">
+                <div class="event-left">
+                    <div class="event-image-container">
+                        <img id="placeImg" class="event-image" src="images/placeholder.jpg" alt="Зображення події">
+                    </div>
+
+                    <div class="event-description-card">
+                        <h3><i class="fa-solid fa-align-left"></i> Про подію</h3>
+                        <p id="evDesc">Опис вантажиться...</p>
+                    </div>
+
+                    <div class="event-description-card reviews-section" style="margin-top: 20px;">
+                        <h3><i class="fa-solid fa-star"></i> Залишити відгук</h3>
+
+                        <div id="reviewFormContainer" style="display: none; margin-top: 15px;">
+                            <form id="reviewForm" class="event-form" style="background: none; padding: 0; border: none;">
+                                <input type="hidden" id="reviewEventId">
+
+                                <div class="rating-area">
+                                    <input type="radio" id="star-5" name="rating" value="5">
+                                    <label for="star-5" title="Оцінка «5»">★</label>
+                                    <input type="radio" id="star-4" name="rating" value="4">
+                                    <label for="star-4" title="Оцінка «4»">★</label>
+                                    <input type="radio" id="star-3" name="rating" value="3">
+                                    <label for="star-3" title="Оцінка «3»">★</label>
+                                    <input type="radio" id="star-2" name="rating" value="2">
+                                    <label for="star-2" title="Оцінка «2»">★</label>
+                                    <input type="radio" id="star-1" name="rating" value="1" required>
+                                    <label for="star-1" title="Оцінка «1»">★</label>
+                                </div>
+
+                                <label style="margin-top: 10px; display: block;">
+                                    Ваш коментар:
+                                    <textarea id="reviewComment" rows="3" required placeholder="Що вам сподобалося?" style="width: 100%; margin-top: 5px;"></textarea>
+                                </label>
+                                <button type="submit" class="submit-btn" style="margin-top: 15px;">Відправити оцінку</button>
+                            </form>
+                        </div>
+
+                        <div id="loginPrompt" class="empty-state" style="margin-top: 15px; text-align: left;">
+                            Щоб залишити відгук та поставити оцінку, будь ласка, <a href="#" onclick="openAuthModal(event)" style="color: #6a5acd; text-decoration: underline;">увійдіть в систему</a>.
+                        </div>
+                    </div>
+
+                    <div class="event-description-card" style="margin-top: 20px;">
+                        <h3><i class="fa-solid fa-comments"></i> Відгуки відвідувачів</h3>
+                        <div id="reviewsList" style="margin-top: 15px;">
+                            <p style="color: var(--text-dim);">Завантаження відгуків...</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="event-right">
+                    <div class="event-info-card">
+                        <div class="info-item">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <div>
+                                <small>Коли відбудеться</small>
+                                <strong id="evDate">---</strong>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <small>Місце проведення</small>
+                                <strong id="locName">---</strong>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fa-solid fa-address-book"></i>
+                            <div>
+                                <small>Зв'язок з організатором</small>
+                                <strong id="locContacts">---</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="map-container-wrapper">
+                        <div id="mapSingle"></div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <a href="events.html" class="btn-outline">← До списку</a>
+
+                        <button id="favBtn" class="btn-outline" onclick="toggleFavorite()">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+
+                        <button class="btn-outline btn-share" onclick="shareEvent()">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+            <div id="loginBlock">
+                <h2 class="section__title" style="text-align:center; margin-bottom: 20px;">Вхід</h2>
+                <form id="loginForm" class="event-form" style="margin: 0; padding: 0; background: none; border: none;">
+                    <label>Email: <input type="email" id="loginEmail" required></label>
+                    <label>Пароль: <input type="password" id="loginPass" required></label>
+                    <button type="submit" class="submit-btn">Увійти</button>
+                </form>
+                <p class="auth-switch">Немає акаунту? <a href="#" onclick="switchAuthMode('register')">Зареєструватися</a></p>
+            </div>
+            <div id="registerBlock" style="display: none;">
+                <h2 class="section__title" style="text-align:center; margin-bottom: 20px;">Реєстрація</h2>
+                <form id="registerForm" class="event-form" style="margin: 0; padding: 0; background: none; border: none;">
+                    <label>Ім'я: <input type="text" id="regName" required></label>
+                    <label>Email: <input type="email" id="regEmail" required></label>
+                    <label>Пароль: <input type="password" id="regPass" required></label>
+                    <label>
+                        Хто ви?
+                        <select id="regRole">
+                            <option value="user">Глядач (шукаю події)</option>
+                            <option value="organizer">Організатор (створюю події)</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="submit-btn">Зареєструватися</button>
+                </form>
+                <p class="auth-switch">Вже є акаунт? <a href="#" onclick="switchAuthMode('login')">Увійти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-about">
+                <a href="index.html" class="logo"><span class="logo-icon">💜</span> PodiySumy</a>
+                <p>Ваш особистий гід по подіях міста Суми. Знаходьте цікаві заходи, плануйте дозвілля та діліться враженнями.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Навігація</h4>
+                <ul>
+                    <li><a href="index.html#map-section">Карта подій</a></li>
+                    <li><a href="events.html">Каталог заходів</a></li>
+                    <li><a href="venue.html">Заклади міста</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contacts">
+                <h4>Зв'язок</h4>
+                <a href="mailto:info@podiy.sumy.ua" class="footer-mail">
+                    <i class="fa-solid fa-envelope"></i> info@podiy.sumy.ua
+                </a>
+                <div class="footer-socials">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2025 PodiySumy. Усі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <script src="place-page.js" defer></script>
+</body>
+</html>

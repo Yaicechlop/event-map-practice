@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Мій кабінет • PodiySumy</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="nav-left">
+            <button id="burger" class="icon-btn" aria-label="Відкрити меню">&#9776;</button>
+            <a href="index.html" class="logo"><span class="logo-icon">💜</span> PodiySumy</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#map-section">Карта</a></li>
+                <li><a href="events.html">Події</a></li>
+                <li><a href="venue.html">Заклади</a></li>
+                <li><a href="rating.html">Рейтинг</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <a href="profile.html" class="nav-gradient-link active">Мій кабінет</a>
+        </div>
+    </nav>
+
+    <section class="section" style="min-height: 70vh;">
+        <div class="container" style="padding: 60px 0;">
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 40px; border-radius: 24px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 36px; margin-bottom: 10px;">
+                        Привіт, <span id="profileName" style="color: var(--accent-yellow);">Гостю</span>! 👋
+                    </h1>
+                    <p style="color: var(--text-dim); font-size: 16px;">
+                        <i class="fa-solid fa-envelope"></i> <span id="profileEmail">Завантаження...</span>
+                        <span id="profileRole" style="margin-left: 15px; background: rgba(122, 43, 249, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: #fff;">Глядач</span>
+                    </p>
+                </div>
+                <button onclick="handleLogout(event)" class="btn-outline" style="border-color: rgba(255, 77, 77, 0.4); color: #ff4d4d; height: 50px;">
+                    <i class="fa-solid fa-right-from-bracket" style="margin-right: 8px;"></i> Вийти з акаунта
+                </button>
+            </div>
+
+            <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-heart" style="color: #e91e63;"></i> Моє вибране
+            </h2>
+            <div id="organizerTabs" style="display: none; margin-bottom: 30px; gap: 10px;">
+                <button onclick="switchTab('favs')" id="tabFavs" class="btn-outline active" style="flex:1">❤️ Моє вибране</button>
+                <button onclick="switchTab('manage')" id="tabManage" class="btn-outline" style="flex:1">📊 Мої події (Дашборд)</button>
+            </div>
+
+            <h2 id="sectionTitle"><i class="fa-solid fa-heart" style="color: #e91e63;"></i> Моє вибране</h2>
+
+            <div id="favoritesGrid" class="event-grid">
+            </div>
+
+            <div id="favoritesGrid" class="event-grid">
+                <p style="color: var(--text-dim);">Завантажуємо ваші улюблені події...</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-about">
+                <a href="index.html" class="logo"><span class="logo-icon">💜</span> PodiySumy</a>
+                <p>Ваш особистий гід по подіях міста Суми. Знаходьте цікаві заходи, плануйте дозвілля та діліться враженнями.</p>
+            </div>
+            <div class="footer-bottom" style="grid-column: 1 / -1; margin-top: 20px; text-align: center;">
+                <p>© 2025 PodiySumy. Усі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="profile.js"></script>
+</body>
+</html>

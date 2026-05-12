@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PodiySumy — карта подій Сум</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="nav-left">
+            <button id="burger" class="icon-btn" aria-label="Меню">&#9776;</button>
+            <a href="index.html" class="logo"><span class="logo-icon">💜</span> PodiySumy</a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#map-section">Карта</a></li>
+                <li><a href="events.html">Події</a></li>
+                <li><a href="venue.html">Заклади</a></li>
+                <li><a href="rating.html">Рейтинг</a></li>
+                <li><a href="#about">Про сервіс</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-right">
+            <form id="searchForm" class="search-box" autocomplete="off">
+                <input id="searchInput" type="text" placeholder="Пошук події…" aria-label="Пошук">
+            </form>
+
+            <a href="index.html#map-section" class="nav-gradient-link">Суми</a>
+
+            <div id="authButtons">
+                <a href="#" onclick="openAuthModal(event)" class="nav-gradient-link">Увійти</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-box">
+            <h1>Знаходь події у місті Суми</h1>
+            <p>Обирай, фільтруй, відвідуй події у твоєму місті просто зараз!</p>
+        </div>
+    </header>
+
+    <section class="top-events-slider container">
+        <div class="slider-header">
+            <h2>🔥 Найближчі події</h2>
+            <a href="events.html" class="see-all">Дивитися всі</a>
+        </div>
+
+        <div class="horizontal-scroll" id="topEventsContainer">
+            <div class="skeleton-loader">Завантаження...</div>
+        </div>
+    </section>
+
+    <section id="map-section" class="map-section">
+        <div class="container">
+            <div id="filters">
+                <select id="category">
+                    <option value="all">Усі категорії</option>
+                    <option>Музика</option>
+                    <option>Кіно</option>
+                    <option>Виставка</option>
+                    <option>Спорт</option>
+                    <option>Навчання</option>
+                </select>
+
+                <select id="venue">
+                    <option value="all">Усі локації</option>
+                </select>
+
+                <input type="date" id="fromCat">
+                <input type="date" id="toCat">
+            </div>
+
+            <div class="map-header">
+                <h2>Карта подій міста</h2>
+                <div class="map-header-line"></div>
+            </div>
+
+            <div class="map-frame">
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="list-section" class="list-section">
+        <div class="container">
+            <div class="list-toggle-wrapper">
+                <button id="toggle-event-list" class="list-view-btn">
+                    <span class="btn-icon">📋</span>
+                    <span class="btn-text">Показати список подій</span>
+                    <span class="btn-count">12</span>
+                </button>
+            </div>
+
+            <div id="event-list-container" class="event-list-collapse">
+                <div id="event-list" class="event-grid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="add-event" class="section section--alt">
+        <div class="container">
+            <h2 class="section__title">Додати нову подію</h2>
+            <form id="addEventForm" class="event-form" enctype="multipart/form-data">
+                <label>Назва події* <input type="text" name="name" id="evName" required></label>
+                <label>Опис* <textarea name="description" id="evDesc" rows="3" required></textarea></label>
+
+                <div class="form-row">
+                    <label>Дата* <input type="date" name="date" id="evDate" required></label>
+                    <label>Категорія* <input type="text" name="type" id="evType" list="categoryList" required></label>
+                    <datalist id="categoryList">
+                        <option value="Музика">
+                        <option value="Кіно">
+                        <option value="Виставка">
+                        <option value="Спорт">
+                        <option value="Навчання">
+                    </datalist>
+                </div>
+
+                <div class="location-picker-box">
+                    <label>
+                        Знайти місце проведення*
+                        <input type="text" id="addressSearch" placeholder="Введіть назву закладу..." autocomplete="off">
+                        <ul id="searchSuggestions" class="suggestions-list"></ul>
+                    </label>
+                    <input type="hidden" id="evLat" name="lat">
+                    <input type="hidden" id="evLng" name="lng">
+
+                    <p class="or-text">або оберіть зі списку:</p>
+                    <select id="evVenue" name="venueId">
+                        <option value="">– нове місце –</option>
+                    </select>
+                    <input type="text" name="location_contacts" placeholder="Телефон або Instagram">
+                </div>
+
+                <div class="file-upload-wrapper">
+                    <p class="label-text">Фото події*</p>
+                    <label for="evImg" class="file-upload-label">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span id="file-name-text">Натисніть, щоб обрати фото</span>
+                    </label>
+                    <input type="file" name="image" id="evImg" accept="image/*" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Зберегти подію</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container about-box">
+            <h2 class="section__title">Про сервіс</h2>
+            <p>PodiySumy — це ваш особистий гід по подіях міста Суми.</p>
+        </div>
+    </section>
+
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+
+            <div id="loginBlock">
+                <h2 class="section__title" style="text-align:center; margin-bottom: 20px;">Вхід</h2>
+                <form id="loginForm" class="event-form" style="margin: 0; padding: 0; background: none; border: none;">
+                    <label>Email: <input type="email" id="loginEmail" required></label>
+                    <label>Пароль: <input type="password" id="loginPass" required></label>
+                    <button type="submit" class="submit-btn">Увійти</button>
+                </form>
+                <p class="auth-switch">Немає акаунту? <a href="#" onclick="switchAuthMode('register')">Зареєструватися</a></p>
+            </div>
+
+            <div id="registerBlock" style="display: none;">
+                <h2 class="section__title" style="text-align:center; margin-bottom: 20px;">Реєстрація</h2>
+                <form id="registerForm" class="event-form" style="margin: 0; padding: 0; background: none; border: none;">
+                    <label>Ім'я: <input type="text" id="regName" required></label>
+                    <label>Email: <input type="email" id="regEmail" required></label>
+                    <label>Пароль: <input type="password" id="regPass" required></label>
+                    <label>
+                        Хто ви?
+                        <select id="regRole">
+                            <option value="user">Глядач (шукаю події)</option>
+                            <option value="organizer">Організатор (створюю події)</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="submit-btn">Зареєструватися</button>
+                </form>
+                <p class="auth-switch">Вже є акаунт? <a href="#" onclick="switchAuthMode('login')">Увійти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-about">
+                <a href="index.html" class="logo"><span class="logo-icon">💜</span> PodiySumy</a>
+                <p>Ваш особистий гід по подіях міста Суми. Знаходьте цікаві заходи, плануйте дозвілля та діліться враженнями.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Навігація</h4>
+                <ul>
+                    <li><a href="index.html#map-section">Карта подій</a></li>
+                    <li><a href="events.html">Каталог заходів</a></li>
+                    <li><a href="venue.html">Заклади міста</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contacts">
+                <h4>Зв'язок</h4>
+                <a href="mailto:info@podiy.sumy.ua" class="footer-mail">
+                    <i class="fa-solid fa-envelope"></i> info@podiy.sumy.ua
+                </a>
+                <div class="footer-socials">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2025 PodiySumy. Усі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
