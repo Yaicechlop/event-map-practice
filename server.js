@@ -378,4 +378,9 @@ app.get('/api/events/:id', (req, res) => {
     });
 });
 
-app.listen(5000, () => console.log(`Сервер працює: http://localhost:5000`));
+// Використовуємо порт, який дасть хостинг, або 5000 для локальної розробки
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Сервер працює на порту ${PORT}`);
+});
