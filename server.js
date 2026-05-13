@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 
 // Беремо секрет з налаштувань Render, або використовуємо локальний
-const JWT_SECRET = process.env.JWT_SECRET || 'tviy_sekretniy_kluch_123';
+const JWT_SECRET = process.env.JWT_SECRET || 'tviy_sekretniy_kluch_123'; 
 
 app.use(cors());
 app.use(express.json());
@@ -329,7 +329,7 @@ app.post('/api/events', authenticateToken, upload.single('image'), (req, res) =>
     const { name, type, date, description, lat, lng, location_contacts, address } = req.body;
     let { venueId } = req.body;
     const finalImageName = req.file ? req.file.filename : 'placeholder.jpg';
-    const user_id = req.user.id;
+    const user_id = req.user.id; 
 
     const saveEvent = (finalVenueId) => {
         const sql = `INSERT INTO events 
@@ -343,7 +343,7 @@ app.post('/api/events', authenticateToken, upload.single('image'), (req, res) =>
             (lng && lng !== '') ? lng : null,
             location_contacts || '',
             address || '',
-            user_id
+            user_id 
         ], (err, result) => {
             if (err) return res.status(500).json({ error: err.message });
             res.json({ id: result.insertId, imageName: finalImageName });

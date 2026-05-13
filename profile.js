@@ -6,7 +6,8 @@ const getEl = (id) => document.getElementById(id);
 const getImgPath = (imgName) => {
     if (!imgName || imgName === 'placeholder.jpg') return 'images/placeholder.jpg';
     if (imgName.startsWith('http') || imgName.startsWith('data:')) return imgName;
-    return `http://localhost:5000/images/${imgName}`;
+    // ВИПРАВЛЕНО: Тепер шлях відносний
+    return `/images/${imgName}`;
 };
 
 // --- ПЕРЕВІРКА АВТОРИЗАЦІЇ ТА ЗАВАНТАЖЕННЯ ДАНИХ ---
@@ -46,7 +47,8 @@ async function loadFavorites(token) {
     const grid = getEl('favoritesGrid');
 
     try {
-        const res = await fetch('http://localhost:5000/api/favorites', {
+        // ВИПРАВЛЕНО
+        const res = await fetch('/api/favorites', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -116,7 +118,8 @@ window.removeFavorite = async function (e, eventId) {
     if (!confirm("Дійсно видалити цю подію зі збережених?")) return;
 
     try {
-        const res = await fetch('http://localhost:5000/api/favorites/toggle', {
+        // ВИПРАВЛЕНО
+        const res = await fetch('/api/favorites/toggle', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({ event_id: eventId })
@@ -152,7 +155,8 @@ async function loadOrganizerEvents(token) {
     grid.innerHTML = '<p style="color: var(--text-dim);">Завантаження статистики...</p>';
 
     try {
-        const res = await fetch('http://localhost:5000/api/organizer/events', {
+        // ВИПРАВЛЕНО
+        const res = await fetch('/api/organizer/events', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -211,7 +215,8 @@ window.deleteEvent = async function (id) {
     const token = localStorage.getItem('token');
 
     try {
-        const res = await fetch(`http://localhost:5000/api/events/${id}`, {
+        // ВИПРАВЛЕНО
+        const res = await fetch(`/api/events/${id}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         });

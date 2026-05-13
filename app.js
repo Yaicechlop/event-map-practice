@@ -9,8 +9,8 @@ window.locations = [];
 const getImgPath = (imgName) => {
     if (!imgName || imgName === 'placeholder.jpg') return 'images/placeholder.jpg';
     if (imgName.startsWith('http') || imgName.startsWith('data:')) return imgName;
-    // Використовуємо localhost, як ти і просив
-    return `http://localhost:5000/images/${imgName}`;
+    // ВИПРАВЛЕНО: Тепер шлях відносний
+    return `/images/${imgName}`;
 };
 
 // --- КЕРУВАННЯ МОДАЛЬНИМ ВІКНОМ АВТОРИЗАЦІЇ ---
@@ -67,7 +67,6 @@ function checkPermissions() {
     const authContainer = $('authButtons');
     if (authContainer) {
         if (user) {
-            // ЗМІНЕНО: Нікнейм тепер посилання на profile.html
             authContainer.innerHTML = `
                 <a href="profile.html" class="user-badge" style="color: #fff; margin-right: 15px; text-decoration: none; cursor: pointer; transition: 0.3s;" onmouseover="this.style.color='var(--accent-yellow)'" onmouseout="this.style.color='#fff'">
                     👤 ${user.username}
@@ -91,7 +90,8 @@ async function handleRegister(e) {
     const role = $('regRole')?.value || 'user';
 
     try {
-        const res = await fetch('http://localhost:5000/api/auth/register', {
+        // ВИПРАВЛЕНО
+        const res = await fetch('/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, email, password, role })
@@ -117,7 +117,8 @@ async function handleLogin(e) {
     const password = $('loginPass')?.value;
 
     try {
-        const res = await fetch('http://localhost:5000/api/auth/login', {
+        // ВИПРАВЛЕНО
+        const res = await fetch('/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -152,9 +153,10 @@ async function initAppData() {
     checkPermissions(); // Перевіряємо ролі відразу при запуску
 
     try {
+        // ВИПРАВЛЕНО
         const [locRes, evRes] = await Promise.all([
-            fetch('http://localhost:5000/api/locations'),
-            fetch('http://localhost:5000/api/events')
+            fetch('/api/locations'),
+            fetch('/api/events')
         ]);
         window.locations = await locRes.json();
         window.events = await evRes.json();
@@ -168,7 +170,7 @@ async function initAppData() {
         loadTopRatedEvents();
 
     } catch (err) {
-        console.error("Помилка завантаження даних з localhost:5000:", err);
+        console.error("Помилка завантаження даних з сервера:", err);
     }
 }
 
@@ -190,7 +192,8 @@ async function handleAddEvent(e) {
     formData.set('lng', $('evLng')?.value || '');
 
     try {
-        const response = await fetch('http://localhost:5000/api/events', {
+        // ВИПРАВЛЕНО
+        const response = await fetch('/api/events', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}` // 2. Відправляємо токен на бекенд
@@ -219,7 +222,7 @@ async function handleAddEvent(e) {
         }
     } catch (err) {
         console.error("Помилка відправки:", err);
-        alert("Не вдалося зв'язатися із сервером localhost:5000.");
+        alert("Не вдалося зв'язатися із сервером.");
     }
 }
 
@@ -269,7 +272,8 @@ async function loadTopRatedEvents() {
     if (!container) return; // Працює тільки на сторінці рейтингу
 
     try {
-        const res = await fetch('http://localhost:5000/api/events/top');
+        // ВИПРАВЛЕНО
+        const res = await fetch('/api/events/top');
         const topEvents = await res.json();
 
         container.innerHTML = '';

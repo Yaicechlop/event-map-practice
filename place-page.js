@@ -9,7 +9,7 @@ window.locations = [];
 const getImgPath = (imgName) => {
     if (!imgName || imgName === 'placeholder.jpg') return 'images/placeholder.jpg';
     if (imgName.startsWith('http') || imgName.startsWith('data:')) return imgName;
-    return `http://localhost:5000/images/${imgName}`;
+    return `/images/${imgName}`;
 };
 
 /* =========================================================
@@ -42,7 +42,7 @@ async function handleRegister(e) {
     e.preventDefault();
     const username = $('regName')?.value, email = $('regEmail')?.value, password = $('regPass')?.value, role = $('regRole')?.value || 'user';
     try {
-        const res = await fetch('http://localhost:5000/api/auth/register', {
+        const res = await fetch('/api/auth/register', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, email, password, role })
         });
         const data = await res.json();
@@ -55,7 +55,7 @@ async function handleLogin(e) {
     e.preventDefault();
     const email = $('loginEmail')?.value, password = $('loginPass')?.value;
     try {
-        const res = await fetch('http://localhost:5000/api/auth/login', {
+        const res = await fetch('/api/auth/login', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password })
         });
         const data = await res.json();
@@ -97,8 +97,8 @@ function checkAuthStatus() {
 async function initAppData() {
     try {
         const [locRes, evRes] = await Promise.all([
-            fetch('http://localhost:5000/api/locations'),
-            fetch('http://localhost:5000/api/events')
+            fetch('/api/locations'),
+            fetch('/api/events')
         ]);
         window.locations = await locRes.json();
         window.events = await evRes.json();
@@ -213,7 +213,7 @@ async function loadTopRatedEvents() {
     const container = $('topRatedContainer');
     if (!container) return;
     try {
-        const res = await fetch('http://localhost:5000/api/events/top');
+        const res = await fetch('/api/events/top');
         const topEvents = await res.json();
         container.innerHTML = '';
         if (topEvents.length === 0) return container.innerHTML = '<p class="empty-state">Поки немає оцінених подій.</p>';
@@ -274,7 +274,7 @@ async function loadSingleEvent() {
     if ($('reviewEventId')) $('reviewEventId').value = eventId;
 
     try {
-        const res = await fetch(`http://localhost:5000/api/events/${eventId}`);
+        const res = await fetch(`/api/events/${eventId}`);
         if (!res.ok) throw new Error("Помилка сервера");
         const event = await res.json();
 
@@ -301,7 +301,7 @@ async function loadSingleEvent() {
 
         const token = localStorage.getItem('token');
         if (token) {
-            const favRes = await fetch(`http://localhost:5000/api/favorites/check/${eventId}`, { headers: { 'Authorization': `Bearer ${token}` } });
+            const favRes = await fetch(`/api/favorites/check/${eventId}`, { headers: { 'Authorization': `Bearer ${token}` } });
             if (favRes.ok) {
                 const favData = await favRes.json();
                 if ($('favBtn') && favData.isFavorite) $('favBtn').innerHTML = '<i class="fa-solid fa-heart"></i>';
@@ -328,7 +328,7 @@ async function submitReview(e) {
     const event_id = $('reviewEventId').value, comment = $('reviewComment').value, ratingEl = document.querySelector('input[name="rating"]:checked');
     if (!ratingEl) return alert("Оберіть зірки!");
     try {
-        const res = await fetch('http://localhost:5000/api/reviews', {
+        const res = await fetch('/api/reviews', {
             method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ event_id, rating: ratingEl.value, comment })
         });
         if (res.ok) { alert("Відгук збережено ⭐️"); window.location.reload(); }
@@ -339,7 +339,7 @@ async function submitReview(e) {
 async function loadReviews(eventId) {
     if (!$('reviewsList')) return;
     try {
-        const res = await fetch(`http://localhost:5000/api/reviews/${eventId}`);
+        const res = await fetch(`/api/reviews/${eventId}`);
         const reviews = await res.json();
         if (reviews.length === 0) return $('reviewsList').innerHTML = '<p style="color: var(--text-dim);">Ще немає відгуків. Будьте першим!</p>';
         $('reviewsList').innerHTML = reviews.map(r => `
@@ -359,7 +359,7 @@ window.toggleFavorite = async () => {
     const eventId = $('reviewEventId')?.value;
     if (!eventId) return;
     try {
-        const res = await fetch('http://localhost:5000/api/favorites/toggle', {
+        const res = await fetch('/api/favorites/toggle', {
             method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ event_id: eventId })
         });
         const data = await res.json();

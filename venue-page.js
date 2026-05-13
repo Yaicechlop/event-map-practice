@@ -1,5 +1,4 @@
-'use strict';
-document.addEventListener('DOMContentLoaded', async () => {
+'use strict'; document.addEventListener('DOMContentLoaded', async () => {
     const wrap = document.getElementById('venuesWrap');
     const hTitle = document.getElementById('heroTitle');
     const hSub = document.getElementById('heroSub');
@@ -11,9 +10,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         wrap.innerHTML = '<p class="loading-text center-text">Завантаження списку локацій...</p>';
 
+        // ВИПРАВЛЕНО: Видалено http://localhost:5000
         const [locRes, evRes] = await Promise.all([
-            fetch('http://localhost:5000/api/locations'),
-            fetch('http://localhost:5000/api/events')
+            fetch('/api/locations'),
+            fetch('/api/events')
         ]);
 
         if (!locRes.ok || !evRes.ok) throw new Error("Помилка запиту");
