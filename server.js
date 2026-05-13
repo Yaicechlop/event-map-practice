@@ -5,15 +5,32 @@ const multer = require('multer');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 const app = express();
-const JWT_SECRET = 'tviy_sekretniy_kluch_123'; // Твій секретний ключ
+
+// Беремо секрет з налаштувань Render, або використовуємо локальний
+const JWT_SECRET = process.env.JWT_SECRET || 'tviy_sekretniy_kluch_123';
 
 app.use(cors());
 app.use(express.json());
 
+// ==========================================
+// НАЛАШТУВАННЯ ДЛЯ ХОСТИНГУ (RENDER)
+// ==========================================
 // Дозволяємо браузеру бачити файли в папці images
 app.use('/images', express.static('images'));
 
+// Кажемо серверу віддавати твої HTML, CSS та JS файли
+app.use(express.static(__dirname));
+
+// Якщо хтось заходить на головну сторінку сайту, відправляємо йому index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// ==========================================
+// НАЛАШТУВАННЯ ЗАВАНТАЖЕННЯ ФОТО
+// ==========================================
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'images/');
@@ -24,12 +41,18 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// ==========================================
+// ПІДКЛЮЧЕННЯ ДО БАЗИ ДАНИХ (AIVEN MYSQL)
+// ==========================================
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'podiy_sumy',
-    charset: 'utf8mb4'
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'podiy_sumy',
+    port: process.env.DB_PORT || 3306,
+    charset: 'utf8mb4',
+    // ВАЖЛИВО: Aiven вимагає SSL для підключення
+    ssl: process.env.DB_HOST ? { rejectUnauthorized: false } : undefined
 });
 
 db.connect(err => {
@@ -225,7 +248,7 @@ app.get('/api/favorites/check/:eventId', authenticateToken, (req, res) => {
     });
 });
 
-// 4. НОВЕ: Отримати події організатора зі статистикою (Дашборд) - З РОЗДІЛЕННЯМ ПРАВ
+// 4. Отримати події організатора зі статистикою (Дашборд) - З РОЗДІЛЕННЯМ ПРАВ
 app.get('/api/organizer/events', authenticateToken, (req, res) => {
     if (req.user.role !== 'organizer' && req.user.role !== 'admin') {
         return res.status(403).json({ error: "Доступ заборонено." });
@@ -243,12 +266,10 @@ app.get('/api/organizer/events', authenticateToken, (req, res) => {
 
     const queryParams = [];
 
-    // Якщо це звичайний організатор — показуємо тільки його події
     if (req.user.role === 'organizer') {
         sql += ` WHERE e.user_id = ?`;
         queryParams.push(req.user.id);
     }
-    // Якщо адмін — WHERE не додається, показує всі події
 
     sql += ` GROUP BY e.id ORDER BY e.date DESC`;
 
@@ -258,15 +279,13 @@ app.get('/api/organizer/events', authenticateToken, (req, res) => {
     });
 });
 
-// 5. НОВЕ: Видалення події організатором/адміном
+// 5. Видалення події організатором/адміном
 app.delete('/api/events/:id', authenticateToken, (req, res) => {
-    // Дозволяємо видалення тільки якщо ID автора збігається АБО якщо роль = admin
     const sql = "DELETE FROM events WHERE id = ? AND (user_id = ? OR ? = 'admin')";
 
     db.query(sql, [req.params.id, req.user.id, req.user.role], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
 
-        // Якщо жоден рядок не видалено, значить подія не належить цьому користувачу
         if (result.affectedRows === 0) {
             return res.status(403).json({ error: "У вас немає прав для видалення цієї події." });
         }
@@ -274,7 +293,6 @@ app.delete('/api/events/:id', authenticateToken, (req, res) => {
         res.json({ message: "Подію успішно видалено" });
     });
 });
-
 
 // ==========================================
 // МАРШРУТИ ПОДІЙ ТА ЛОКАЦІЙ
@@ -311,9 +329,8 @@ app.post('/api/events', authenticateToken, upload.single('image'), (req, res) =>
     const { name, type, date, description, lat, lng, location_contacts, address } = req.body;
     let { venueId } = req.body;
     const finalImageName = req.file ? req.file.filename : 'placeholder.jpg';
-    const user_id = req.user.id; // Беремо ID організатора з токена
+    const user_id = req.user.id;
 
-    // ФУНКЦІЯ: Збереження самої події
     const saveEvent = (finalVenueId) => {
         const sql = `INSERT INTO events 
             (name, type, date, description, image, venueId, lat, lng, location_contacts, address, user_id) 
@@ -326,14 +343,13 @@ app.post('/api/events', authenticateToken, upload.single('image'), (req, res) =>
             (lng && lng !== '') ? lng : null,
             location_contacts || '',
             address || '',
-            user_id // Записуємо автора
+            user_id
         ], (err, result) => {
             if (err) return res.status(500).json({ error: err.message });
             res.json({ id: result.insertId, imageName: finalImageName });
         });
     };
 
-    // ЛОГІКА: Якщо заклад не обрано зі списку, але є адреса — створюємо новий заклад!
     if ((!venueId || venueId === 'null') && address) {
         const locationName = address.split(',')[0];
 
